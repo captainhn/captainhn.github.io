@@ -1069,7 +1069,7 @@ pre .javascript .function {
   bottom: 30px;
 }
 .header {
-  background: url("../image/me.jpg");
+  background: url("D:\hexo\blog\source\img\me.jpg");
 }
 .header-inner {
   position: relative;
@@ -1808,7 +1808,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffff1b;
+  background: #a100eb;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2662,7 +2662,6 @@ pre .javascript .function {
   box-sizing: border-box;
   padding: 40px;
   width: 700px;
-  background: #fff;
   min-height: 700px;
   box-shadow: initial;
   border-radius: initial;
