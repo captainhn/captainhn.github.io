@@ -124,7 +124,8 @@
 <meta property="og:image" content="http://yoursite.com/img/hexo/20.jpg">
 <meta property="og:image" content="http://yoursite.com/img/hexo/21.jpg">
 <meta property="og:image" content="http://yoursite.com/img/hexo/22.jpg">
-<meta property="og:updated_time" content="2018-03-07T13:42:23.297Z">
+<meta property="og:image" content="http://yoursite.com/img/hexo/23.jpg">
+<meta property="og:updated_time" content="2018-03-10T04:50:04.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Hexo+Github 搭建属于自己的博客">
 <meta name="twitter:description" content="如果你想要清晰地思考，就必须远离人群。但是走得越远，你的处境就会越困难，收到的阻力也会越大。因为你没有迎合社会习俗，而是一步步地与它背道而驰。如果自己就是潮水的一部分 ，怎么能看见潮流的方向呢？你只能永远保持质疑，问自己，什么话是我不能说的？为什么？——Paul Graham《不能说的话》 Hexo简介 Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）">
@@ -190,7 +191,8 @@
 
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
-
+    
+    <a href="https://github.com/captainhn" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
@@ -291,7 +293,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Haonan Cui">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/img/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -457,7 +459,14 @@
 <li>添加图标<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Put your favicon.ico into `hexo-site/source/` directory.</span><br><span class="line">favicon: /images/favicon.ico</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>如果遇到问题可以在GitHub上查找，<a href="https://github.com/iissnan/hexo-theme-next/issues" target="_blank" rel="noopener">网址</a></p>
+<p>如果遇到问题可以在GitHub上查找，<a href="https://github.com/iissnan/hexo-theme-next/issues" target="_blank" rel="noopener">网址</a><br>设置头像：在站点配置文件中,添加avatar字段,值设置成头像的链接地址.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">avatar: /images/avatar.png</span><br><span class="line">//路径主题文件source/images目录下</span><br></pre></td></tr></table></figure></p>
+<p>背景透明：<br>博客根目录 themes\next\source\css_schemes\Pisces_layout.styl这个文件的<br>第65行background:删除掉<br>动态背景：<br>next主题在5.1.1以上的话就不用我这样设置，直接在主题配置文件中找到canvas_nest: false，把它改为canvas_nest: true就行了（注意分号后面要加一个空格）<br>左上角的GitHub图标：</p>
+<ol>
+<li>点击 <a href="https://blog.github.com/2008-12-19-github-ribbons/挑选自己喜欢的样式，并复制代码。" target="_blank" rel="noopener">https://blog.github.com/2008-12-19-github-ribbons/挑选自己喜欢的样式，并复制代码。</a> </li>
+<li>然后粘贴刚才复制的代码到themes/next/layout/_layout.swig文件中(放在<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;headband&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>的下面)，并把href改为你的github地址 。<br><img src="/img/hexo/23.jpg" alt=""></p>
 <h3 id="博客配置"><a href="#博客配置" class="headerlink" title="博客配置"></a>博客配置</h3><p>首先，我们先分清两个概念：<br>站点配置文件： hexo 路径下面的 _config.yml 文件。<br>主题配置文件： themes/next 路径下的 _config.yml 文件。</p>
 <ol>
 <li><p>在站点配置文件可以配置：</p>
@@ -586,7 +595,7 @@
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
+               src="/img/avatar.png"
                alt="Haonan Cui" />
           <p class="site-author-name" itemprop="name">Haonan Cui</p>
            
@@ -714,6 +723,8 @@
   
 
 
+  
+
 
 
 
@@ -741,6 +752,9 @@
 
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
