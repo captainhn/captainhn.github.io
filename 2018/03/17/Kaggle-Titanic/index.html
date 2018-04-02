@@ -81,16 +81,31 @@
 
 <meta name="description" content="Kaggle是由联合创始人、首席执行官安东尼·高德布卢姆（Anthony Goldbloom）2010年在墨尔本创立的，主要为开发商和数据科学家提供举办机器学习竞赛、托管数据库、编写和分享代码的平台。该平台已经吸引了80万名数据科学家的关注，这些用户资源或许正是吸引谷歌（谷歌收购数据公司kaggle）的主要因素。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Machine Learning | Kaggle: Titanic">
+<meta property="og:title" content="Machine Learning | Kaggle: Titanic(1)">
 <meta property="og:url" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/index.html">
 <meta property="og:site_name" content="CHN&#39;s Blog">
 <meta property="og:description" content="Kaggle是由联合创始人、首席执行官安东尼·高德布卢姆（Anthony Goldbloom）2010年在墨尔本创立的，主要为开发商和数据科学家提供举办机器学习竞赛、托管数据库、编写和分享代码的平台。该平台已经吸引了80万名数据科学家的关注，这些用户资源或许正是吸引谷歌（谷歌收购数据公司kaggle）的主要因素。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/1.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/2.png">
-<meta property="og:updated_time" content="2018-03-17T16:57:35.270Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/4.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/5.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/6.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/7.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/8.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/9.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/10.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/11.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/12.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/13.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/14.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/15.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/16.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/17.png">
+<meta property="og:updated_time" content="2018-03-31T16:15:19.551Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Machine Learning | Kaggle: Titanic">
+<meta name="twitter:title" content="Machine Learning | Kaggle: Titanic(1)">
 <meta name="twitter:description" content="Kaggle是由联合创始人、首席执行官安东尼·高德布卢姆（Anthony Goldbloom）2010年在墨尔本创立的，主要为开发商和数据科学家提供举办机器学习竞赛、托管数据库、编写和分享代码的平台。该平台已经吸引了80万名数据科学家的关注，这些用户资源或许正是吸引谷歌（谷歌收购数据公司kaggle）的主要因素。">
 <meta name="twitter:image" content="http://yoursite.com/2018/03/17/Kaggle-Titanic/1.png">
 
@@ -128,7 +143,7 @@
 
 
 
-  <title>Machine Learning | Kaggle: Titanic | CHN's Blog</title>
+  <title>Machine Learning | Kaggle: Titanic(1) | CHN's Blog</title>
   
 
 
@@ -252,7 +267,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Machine Learning | Kaggle: Titanic</h1>
+          <h1 class="post-title" itemprop="name headline">Machine Learning | Kaggle: Titanic(1)</h1>
         
 
         <div class="post-meta">
@@ -336,8 +351,137 @@
 <li>注意特征合并</li>
 <li>从基础模型开始，注意一步步优化（欠/过拟合、feature选择等）</li>
 </ul>
-<h2 id="正式开始"><a href="#正式开始" class="headerlink" title="正式开始"></a>正式开始</h2><p>以下的关键思想来自于寒小阳老师。</p>
-<p>### </p>
+<h2 id="正式开始"><a href="#正式开始" class="headerlink" title="正式开始"></a>正式开始</h2><p>我们采用的编程语言是近几年特火的python（人生苦短），当然你也可以用你喜欢的方式实现比如R语言等，毕竟我们学习的关键点在于思想！<br>我们采用python3，这里注意python3的有些库并不兼容python2,所以当你采用python2进行编程时应注意其中的不同点。<br>我们大概会用到如下的几个库：</p>
+<ul>
+<li>numpy：用于科学计算</li>
+<li>pandas：用于数据分析</li>
+<li>matplotlib：用于绘图</li>
+<li>Scikit-learn：是Python开发的机器学习库，包含大量模型。</li>
+</ul>
+<p>如果你还没有安装上述库，请用pip工具进行下载，安装python时一般都会带有pip工具，会在你的安装路径下的scripts的文件夹中，你从命令行中进入此路径，然后运行命令</p>
+<blockquote>
+<p>pip install 安装包</p>
+</blockquote>
+<p>如果感觉下载速度特慢，慢的忍不了，那你可以通过国内的镜像网址进行下载，因为直接pip下载的是国外的源。</p>
+<p>你可以用你喜欢的编辑器进行操作，比如spyder、pycharm等，我使用的是spyder，或许你可以直接安装anaconda，这是一个集成了很多python工具和提供库管理的软件，当你安装成功之后，里面会有一些我们常用的python库，还有spyder、jupyter notebook等工具。</p>
+<p>我们首先导入相应库，然后加载数据，注意你的spyder 的当前目录下应该有train.csv文件。</p>
+<blockquote>
+<p>import pandas as pd<br>  import numpy as np<br>  from pandas import Series, DataFrame #可以直接从库中导入对象<br>  data_train = pd.read_csv(“train.csv”)  #使用pandas库中的读csv文件语句<br> data_train.columns#查看属性列</p>
+</blockquote>
+<p><img src="/2018/03/17/Kaggle-Titanic/3.png" width="80%" height="80%" align="center/"><br>我们可以看到这个数据有以上几个属性。分别是乘客ID、是否存活、乘客的等级、乘客姓名、性别、年龄、兄弟姐妹个数、父母与小孩的个数、船票、价格、船舱、登船港口。<br>我们可以通过pandas提供数据的总体信息：</p>
+<blockquote>
+<p>data_train.info()</p>
+</blockquote>
+<p><img src="/2018/03/17/Kaggle-Titanic/4.png" width="80%" height="80%" align="center/"></p>
+<p>我们可以发现数据集里面共统计了891位乘客，但是有些属性并不全，比如age只有714个，cabin只有204个（少的可怜）。我们还可以看出数据集里面不仅有数值型还有文本型、类目型。我们进一步通过describe方法查看数值型信息</p>
+<blockquote>
+<p>data_train.describe()</p>
+</blockquote>
+<p><img src="/2018/03/17/Kaggle-Titanic/5.png" width="80%" height="80%" align="center/"></p>
+<p>我们可以从mean属性中可以看出，大约有38.38%的乘客会获救，乘客的平均年龄在29.69左右，船票的平均价格在32.20左右。<br>接下来，我们在通过绘图具体分析属性的分布情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">fig.set(alpha=0.2)  # 设定图表颜色alpha参数</span><br><span class="line">plt.subplot2grid((2,3),(0,0))             # 在一张大图里分列几个小图</span><br><span class="line">data_train.Survived.value_counts().plot(kind=&apos;bar&apos;)# 通过柱状图显示获救和没获救的人数</span><br><span class="line">plt.title(&quot;获救情况 (1为获救)&quot;) #列出标题</span><br><span class="line">plt.ylabel(&quot;人数&quot;)  </span><br><span class="line">plt.subplot2grid((2,3),(0,1))</span><br><span class="line">data_train.Pclass.value_counts().plot(kind=&quot;bar&quot;)</span><br><span class="line">plt.ylabel(&quot;人数&quot;)</span><br><span class="line">plt.title(&quot;乘客等级分布&quot;)</span><br><span class="line">plt.subplot2grid((2,3),(0,2))</span><br><span class="line">plt.scatter(data_train.Survived, data_train.Age)</span><br><span class="line">plt.ylabel(&quot;年龄&quot;)                       </span><br><span class="line">plt.grid(b=True, which=&apos;major&apos;, axis=&apos;y&apos;) #格式化我们图的网格线样式</span><br><span class="line">plt.title(&quot;按年龄看获救分布 (1为获救)&quot;)</span><br><span class="line">plt.subplot2grid((2,3),(1,0), colspan=2)</span><br><span class="line">data_train.Age[data_train.Pclass == 1].plot(kind=&apos;kde&apos;)   # 绘制对一等舱人员的年龄密度曲线</span><br><span class="line">data_train.Age[data_train.Pclass == 2].plot(kind=&apos;kde&apos;)</span><br><span class="line">data_train.Age[data_train.Pclass == 3].plot(kind=&apos;kde&apos;)</span><br><span class="line">plt.xlabel(&quot;年龄&quot;)# plots an axis lable</span><br><span class="line">plt.ylabel(&quot;密度&quot;) </span><br><span class="line">plt.title(&quot;各等级的乘客年龄分布&quot;)</span><br><span class="line">plt.legend((&apos;头等舱&apos;, u&apos;2等舱&apos;,u&apos;3等舱&apos;),loc=&apos;best&apos;) # sets our legend for our graph.</span><br><span class="line">plt.subplot2grid((2,3),(1,2))</span><br><span class="line">data_train.Embarked.value_counts().plot(kind=&apos;bar&apos;)</span><br><span class="line">plt.title(&quot;各登船口岸上船人数&quot;)</span><br><span class="line">plt.ylabel(&quot;人数&quot;)  </span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/03/17/Kaggle-Titanic/6.png" width="80%" height="80%" align="center/"></p>
+<p>若你用的是python2，那你应该在汉字前面加上字母u，设置为<strong>utf-8</strong>编码格式，以显示汉字。若你的图片中的汉字显示为方框，那可以加上以下语句：</p>
+<blockquote>
+<p>from pylab import mpl<br>mpl.rcParams[‘font.sans-serif’] = [‘FangSong’] # 指定默认字体<br>mpl.rcParams[‘axes.unicode_minus’] = False # 解决保存图像是负号’-‘显示为方块的问题</p>
+</blockquote>
+<ul>
+<li>我们可以从图中看出获救的人约占总数的1/3。</li>
+<li>在等级舱分布中，3号舱人数明显高于1，2号。</li>
+<li>获救和遇难的年龄分布大体类似，似乎没有特别的差异。</li>
+<li>各舱的年龄分布中头等舱的峰值趋向中年改，而2，3等舱趋向于青年人。应该是年龄大的人群积累的财富也多。</li>
+<li>在登船港口中，s港口的人数明显多于两外两个港口。</li>
+</ul>
+<p>下面我们结合获救情况来统计：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure() #查看各等级分布情况</span><br><span class="line">fig.set(alpha=0.2)  # 设定图表颜色alpha参数</span><br><span class="line">Survived_0 = data_train.Pclass[data_train.Survived == 0].value_counts() #根据等级来统计未获救的人数，是一个Series结构</span><br><span class="line">Survived_1 = data_train.Pclass[data_train.Survived == 1].value_counts()</span><br><span class="line">df=pd.DataFrame(&#123;&apos;获救&apos;:Survived_1, &apos;未获救&apos;:Survived_0&#125;)#将series组合成一个Dataframe结构</span><br><span class="line">df.plot(kind=&apos;bar&apos;, stacked=True)#stacked用于将获救和未获救的情况叠加在一起。</span><br><span class="line">plt.title(u&quot;各乘客等级的获救情况&quot;)</span><br><span class="line">plt.xlabel(u&quot;乘客等级&quot;) </span><br><span class="line">plt.ylabel(u&quot;人数&quot;) </span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/03/17/Kaggle-Titanic/7.png" width="80%" height="80%" align="center/"></p>
+<p>我们可以发现随着等级的降低，获救的乘客的比例较少，看来等级是影响最终获救情况的一个重要的因素。<br>我们再来看看性别的不同对获救情况的影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">fig.set(alpha=0.2)  </span><br><span class="line">Survived_m = data_train.Survived[data_train.Sex == &apos;male&apos;].value_counts() #统计获救情况人员为男性的数据，是一个series结构</span><br><span class="line">Survived_f = data_train.Survived[data_train.Sex == &apos;female&apos;].value_counts()#统计获救情况人员为女性的数据</span><br><span class="line">df=pd.DataFrame(&#123;u&apos;男性&apos;:Survived_m, u&apos;女性&apos;:Survived_f&#125;)#通过DataFrame方法将两个Series组成一个DataFrame结构</span><br><span class="line">df.plot(kind=&apos;bar&apos;, stacked=True)</span><br><span class="line">plt.title(u&quot;按性别看获救情况&quot;)</span><br><span class="line">plt.xlabel(u&quot;性别&quot;) </span><br><span class="line">plt.ylabel(u&quot;人数&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/03/17/Kaggle-Titanic/8.png" width="80%" height="80%" align="center/"></p>
+<p>我们可发现，在获救人数里面女性明显的多于男性，而未获救的人数里，男性明显的多于女性。这说明性别也是影响最终是否获救的一个重要因素。看来老外的在生命攸关之时依然能够保持绅士风度。<br>我们再来看一下登入港口的不同对于获救的影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fig =plt.figure()</span><br><span class="line">fig.set(alpha=0.2)</span><br><span class="line">Survived_0 =data_train.Embarked[data_train.Survived ==0 ].value_counts()</span><br><span class="line">Survived_1 = data_train.Embarked[data_train.Survived ==1].value_counts()</span><br><span class="line">df=pd.DataFrame(&#123;&quot;获救&quot;:Survived_1,&quot;未获救&quot;:Survived_0&#125;)</span><br><span class="line">df.plot(kind=&apos;bar&apos;,stacked= True)</span><br><span class="line">plt.xlabel(&quot;港口&quot;)</span><br><span class="line">plt.ylabel(&quot;人数&quot;)</span><br><span class="line">plt.title(&quot;各港口获救情况人数&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/03/17/Kaggle-Titanic/9.png" width="80%" height="80%" align="center/"></p>
+<p>我们从上图比没有发现特别明显的特征，各港口的获救情况大致为对半分，由于港口的不同造成获救情况的影响比较小</p>
+<p>我们再考虑父母和堂兄弟姐妹所带来的影响：</p>
+<blockquote>
+<p>g = data_train.groupby([‘Parch’,’Survived’])<br>df = pd.DataFrame(g.count()[‘PassengerId’])<br>df</p>
+</blockquote>
+<blockquote>
+<p>g = data_train.groupby([‘SibSp’,’Survived’])<br>df = pd.DataFrame(g.count()[‘PassengerId’])<br>print(df)</p>
+</blockquote>
+<p>运行结果后我们会得到相应的DataFrame结构表，但是看不出来明显的规律，可先放在一边作为备选特征，说不定家族大的乘客获救的机会也大呢。<br>对于船票，我们的常识告诉我们应该没有直接关系，因为是随机发放的。<br>客舱属性是一个麻烦的处理量，因为它只有207个值，缺失性比较多。</p>
+<blockquote>
+<p>data_train.Cabin.value_counts()#看一下船舱的分布情况</p>
+</blockquote>
+<p><img src="/2018/03/17/Kaggle-Titanic/10.png" width="80%" height="80%" align="center/"></p>
+<p>我们可以看到这里面的分类特别多，属于类目性的属性。如果要进行<strong>one-hot</strong>编码，那我们将会得到很散乱的数据。我们可以现在有无客舱这个粗粒度上进行研究。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">fig.set(alpha=0.2)</span><br><span class="line">Survived_cabin = data_train.Survived[pd.notnull(data_train.Cabin)].value_counts()</span><br><span class="line">Survived_nocabin = data_train.Survived[pd.isnull(data_train.Cabin)].value_counts()</span><br><span class="line">df=pd.DataFrame(&#123;u&apos;有&apos;:Survived_cabin, u&apos;无&apos;:Survived_nocabin&#125;).transpose()</span><br><span class="line">plt.title(u&quot;按Cabin有无看获救情况&quot;)</span><br><span class="line">df.plot(kind=&apos;bar&apos;,stacked=True)</span><br><span class="line">plt.xlabel(u&quot;Cabin有无&quot;) </span><br><span class="line">plt.ylabel(u&quot;人数&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>我们发现好像有船舱记录的乘客获救人数会高一些。<br>通常遇到缺值的情况，我们会有几种常见的处理方式</p>
+<ol>
+<li><p>如果缺值的样本占总数比例极高，我们可能就直接舍弃了，作为特征加入的话，可能反倒带入noise，影响最后的结果了</p>
+</li>
+<li><p>如果缺值的样本适中，而该属性非连续值特征属性(比如说类目属性)，那就把NaN作为一个新类别，加到类别特征中</p>
+</li>
+<li><p>如果缺值的样本适中，而该属性为连续值特征属性，有时候我们会考虑给定一个step(比如这里的age，我们可以考虑每隔2/3岁为一个步长)，然后把它离散化，之后把NaN作为一个type加到属性类目中。</p>
+</li>
+<li><p>有些情况下，缺失的值个数并不是特别多，那我们也可以试着根据已有的值，拟合一下数据，补充上。</p>
+</li>
+</ol>
+<p>本例中，后两种处理方式应该都是可行的，我们先试试拟合补全吧(虽然说没有特别多的背景可供我们拟合，这不一定是一个多么好的选择)，我们这里用scikit-learn中的RandomForest来拟合一下缺失的年龄数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.ensemble import RandomForestRegressor</span><br><span class="line"> ### 使用 RandomForestClassifier 填补缺失的年龄属性</span><br><span class="line">def set_missing_ages(df):   </span><br><span class="line">    # 把已有的数值型特征取出来丢进Random Forest Regressor中</span><br><span class="line">    age_df = df[[&apos;Age&apos;,&apos;Fare&apos;, &apos;Parch&apos;, &apos;SibSp&apos;, &apos;Pclass&apos;]]</span><br><span class="line">    # 乘客分成已知年龄和未知年龄两部分</span><br><span class="line">    known_age = age_df[age_df.Age.notnull()].as_matrix()</span><br><span class="line">    unknown_age = age_df[age_df.Age.isnull()].as_matrix()</span><br><span class="line">    # y即目标年龄</span><br><span class="line">    y = known_age[:, 0]</span><br><span class="line">    # X即特征属性值</span><br><span class="line">    X = known_age[:, 1:]</span><br><span class="line">    # fit到RandomForestRegressor之中</span><br><span class="line">    rfr = RandomForestRegressor(random_state=0, n_estimators=2000, n_jobs=-1)</span><br><span class="line">    rfr.fit(X, y)</span><br><span class="line">    # 用得到的模型进行未知年龄结果预测</span><br><span class="line">    predictedAges = rfr.predict(unknown_age[:, 1:])</span><br><span class="line">    # 用得到的预测结果填补原缺失数据</span><br><span class="line">    df.loc[ (df.Age.isnull()), &apos;Age&apos; ] = predictedAges</span><br><span class="line">    return df, rfr</span><br><span class="line">def set_Cabin_type(df):</span><br><span class="line">    df.loc[ (df.Cabin.notnull()), &apos;Cabin&apos; ] = &quot;Yes&quot;</span><br><span class="line">    df.loc[ (df.Cabin.isnull()), &apos;Cabin&apos; ] = &quot;No&quot;</span><br><span class="line">    return df</span><br><span class="line">data_train, rfr = set_missing_ages(data_train)</span><br><span class="line">data_train = set_Cabin_type(data_train)</span><br><span class="line">print(data_train)</span><br></pre></td></tr></table></figure></p>
+<p> <img src="/2018/03/17/Kaggle-Titanic/11.png" width="80%" height="80%" align="center/"></p>
+<p>在进行逻辑回归建模时，我们需要将输入的特征变为数值型特征。所以需要将数据里面的类目型特征进行特征离散。我们这里用Cabin属性来说，当取yes时，则cabin_yes=1,在cabin_no=0；当取no时，则取值相反。<br>我们可以使用panads的get_dummies来完成这个，并且拼接在data_train之上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dummies_Cabin=pd.get_dummies(data_train[&apos;Cabin&apos;],prefix=&apos;Cabin&apos;)</span><br><span class="line">dummies_Embarked = pd.get_dummies(data_train[&apos;Embarked&apos;], prefix= &apos;Embarked&apos;)</span><br><span class="line">dummies_Sex = pd.get_dummies(data_train[&apos;Sex&apos;], prefix= &apos;Sex&apos;)</span><br><span class="line">dummies_Pclass = pd.get_dummies(data_train[&apos;Pclass&apos;], prefix= &apos;Pclass&apos;)</span><br><span class="line">df = pd.concat([data_train, dummies_Cabin, dummies_Embarked, dummies_Sex, dummies_Pclass], axis=1)</span><br><span class="line">df.drop([&apos;Pclass&apos;, &apos;Name&apos;, &apos;Sex&apos;, &apos;Ticket&apos;, &apos;Cabin&apos;, &apos;Embarked&apos;], axis=1, inplace=True)</span><br><span class="line">print(df)</span><br></pre></td></tr></table></figure></p>
+<p> <img src="/2018/03/17/Kaggle-Titanic/12.png" width="80%" height="80%" align="center/"></p>
+<p>我们还会发现属性Age和Fare的数值变化非常大，这在梯度下降的时候会对收敛速度产生非常大的影响，甚至会不收敛，所以我们用scikilearn里面的preprocessing模块对他们进行一个scaling，其实就是将他们的数值压缩到[-1,1]。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import sklearn.preprocessing as preprocessing </span><br><span class="line">scaler = preprocessing.StandardScaler()</span><br><span class="line">age_scale_param = scaler.fit(df[&apos;Age&apos;].reshape(-1,1))</span><br><span class="line">df[&apos;Age_scaled&apos;] = scaler.fit_transform(df[&apos;Age&apos;].reshape(-1,1), age_scale_param)</span><br><span class="line">fare_scale_param = scaler.fit(df[&apos;Fare&apos;].reshape(-1,1))</span><br><span class="line">df[&apos;Fare_scaled&apos;] = scaler.fit_transform(df[&apos;Fare&apos;].reshape(-1,1), fare_scale_param)</span><br><span class="line">print(df)</span><br></pre></td></tr></table></figure></p>
+<p>我们把需要的feature字段取出来，转成numpy格式，使用scikit-learn中的LogisticRegression建模。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from sklearn import linear_model</span><br><span class="line"></span><br><span class="line">train_df = df.filter(regex=&apos;Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*&apos;)</span><br><span class="line">train_np = train_df.as_matrix()</span><br><span class="line">y = train_np[:, 0]# y即Survival结果</span><br><span class="line">X = train_np[:, 1:]# X即特征属性值</span><br><span class="line">clf = linear_model.LogisticRegression(C=1.0, penalty=&apos;l1&apos;, tol=1e-6)# fit到RandomForestRegressor之中</span><br><span class="line">clf.fit(X, y)</span><br><span class="line">print(clf)</span><br></pre></td></tr></table></figure></p>
+<p> <img src="/2018/03/17/Kaggle-Titanic/13.png" width="80%" height="80%" align="center/"></p>
+<p>接下来咱们对训练集和测试集做一样的操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">data_test = pd.read_csv(&quot;test.csv&quot;)</span><br><span class="line">data_test.loc[ (data_test.Fare.isnull()), &apos;Fare&apos; ] = 0# 接着我们对test_data做和train_data中一致的特征变换 首先用同样RandomForestRegressor模型填上丢失的年龄</span><br><span class="line">tmp_df = data_test[[&apos;Age&apos;,&apos;Fare&apos;, &apos;Parch&apos;, &apos;SibSp&apos;, &apos;Pclass&apos;]]</span><br><span class="line">null_age = tmp_df[data_test.Age.isnull()].as_matrix()</span><br><span class="line">X = null_age[:, 1:]# 根据特征属性X预测年龄并补上</span><br><span class="line">predictedAges = rfr.predict(X)</span><br><span class="line">data_test.loc[ (data_test.Age.isnull()), &apos;Age&apos; ] = predictedAges</span><br><span class="line">data_test = set_Cabin_type(data_test)</span><br><span class="line">dummies_Cabin = pd.get_dummies(data_test[&apos;Cabin&apos;], prefix= &apos;Cabin&apos;)</span><br><span class="line">dummies_Embarked = pd.get_dummies(data_test[&apos;Embarked&apos;], prefix= &apos;Embarked&apos;)</span><br><span class="line">dummies_Sex = pd.get_dummies(data_test[&apos;Sex&apos;], prefix= &apos;Sex&apos;)</span><br><span class="line">dummies_Pclass = pd.get_dummies(data_test[&apos;Pclass&apos;], prefix= &apos;Pclass&apos;)</span><br><span class="line">df_test = pd.concat([data_test, dummies_Cabin, dummies_Embarked, dummies_Sex, dummies_Pclass], axis=1)</span><br><span class="line">df_test.drop([&apos;Pclass&apos;, &apos;Name&apos;, &apos;Sex&apos;, &apos;Ticket&apos;, &apos;Cabin&apos;, &apos;Embarked&apos;], axis=1, inplace=True)</span><br><span class="line">df_test[&apos;Age_scaled&apos;] = scaler.fit_transform(df_test[&apos;Age&apos;].reshape(-1,1), age_scale_param)</span><br><span class="line">df_test[&apos;Fare_scaled&apos;]= scaler.fit_transform(df_test[&apos;Fare&apos;].reshape(-1,1), fare_scale_param)</span><br><span class="line">print(df_test)</span><br><span class="line">test = df_test.filter(regex=&apos;Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*&apos;)</span><br><span class="line">predictions = clf.predict(test)</span><br><span class="line">result = pd.DataFrame(&#123;&apos;PassengerId&apos;:data_test[&apos;PassengerId&apos;].as_matrix(), &apos;Survived&apos;:predictions.astype(np.int32)&#125;)</span><br><span class="line">result.to_csv(&quot;logistic_regression_predictions.csv&quot;, index=False)</span><br><span class="line">pd.read_csv(&quot;logistic_regression_predictions.csv&quot;)</span><br></pre></td></tr></table></figure></p>
+<p> <img src="/2018/03/17/Kaggle-Titanic/14.png" width="80%" height="80%" align="center/"></p>
+<p>这只是我们简单分析过后出的一个baseline系统。</p>
+<p>##进阶</p>
+<p>###判断是否过拟合或者欠拟合</p>
+<p>当我们发现我们的模型在测试数据上表现的效果不佳，我们需要考虑导致这结果的原因。</p>
+<ul>
+<li><strong>过拟合</strong>：当我们不断的做特征工程（feature engineering），产生的特征越来越多，然后用他们来训练模型时，我们模型对训练集的拟合程度越来越好，但是这却导致了模型在测试集上的效果下降，导致泛化能力的下降。</li>
+<li><p><strong>办法</strong>：做一下feature selection，挑出来较好的feature来做training。提供更多的数据，从而弥补原始数据的bias问题。</p>
+</li>
+<li><p><strong>欠拟合</strong>：也可能是因为模型的训练程度的不够，从而导致模型的效果不佳。</p>
+</li>
+<li><strong>办法</strong>：我们需要更多的特征来训练模型，提高精确度。</li>
+</ul>
+<p>著名的learning curve可以帮我们判定我们的模型现在所处的状态。我们以样本数为横坐标，训练和交叉验证集上的错误率作为纵坐标，两种状态分别如下两张图所示：过拟合(overfitting/high variace)，欠拟合(underfitting/high bias)</p>
+<p><img src="/2018/03/17/Kaggle-Titanic/15.png" width="80%" height="80%" align="center/"></p>
+<p>我们也可以把错误率替换成准确率(得分)，得到另一种形式的learning curve(sklearn 里面是这么做的)。<br>回到我们的问题，我们用scikit-learn里面的learning_curve来帮我们分辨我们模型的状态。举个例子，这里我们一起画一下我们最先得到的baseline model的learning curve。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">from sklearn.learning_curve import learning_curve</span><br><span class="line"></span><br><span class="line"># 用sklearn的learning_curve得到training_score和cv_score，使用matplotlib画出learning curve</span><br><span class="line">def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=1, </span><br><span class="line">                        train_sizes=np.linspace(.05, 1., 20), verbose=0, plot=True):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    画出data在某模型上的learning curve.</span><br><span class="line">    参数解释</span><br><span class="line">    ----------</span><br><span class="line">    estimator : 你用的分类器。</span><br><span class="line">    title : 表格的标题。</span><br><span class="line">    X : 输入的feature，numpy类型</span><br><span class="line">    y : 输入的target vector</span><br><span class="line">    ylim : tuple格式的(ymin, ymax), 设定图像中纵坐标的最低点和最高点</span><br><span class="line">    cv : 做cross-validation的时候，数据分成的份数，其中一份作为cv集，其余n-1份作为training(默认为3份)</span><br><span class="line">    n_jobs : 并行的的任务数(默认1)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    train_sizes, train_scores, test_scores = learning_curve(</span><br><span class="line">        estimator, X, y, cv=cv, n_jobs=n_jobs, train_sizes=train_sizes, verbose=verbose)</span><br><span class="line">    </span><br><span class="line">    train_scores_mean = np.mean(train_scores, axis=1)</span><br><span class="line">    train_scores_std = np.std(train_scores, axis=1)</span><br><span class="line">    test_scores_mean = np.mean(test_scores, axis=1)</span><br><span class="line">    test_scores_std = np.std(test_scores, axis=1)</span><br><span class="line">    </span><br><span class="line">    if plot:</span><br><span class="line">        plt.figure()</span><br><span class="line">        plt.title(title)</span><br><span class="line">        if ylim is not None:</span><br><span class="line">            plt.ylim(*ylim)</span><br><span class="line">        plt.xlabel(u&quot;训练样本数&quot;)</span><br><span class="line">        plt.ylabel(u&quot;得分&quot;)</span><br><span class="line">        plt.gca().invert_yaxis()</span><br><span class="line">        plt.grid()</span><br><span class="line">    </span><br><span class="line">        plt.fill_between(train_sizes, train_scores_mean - train_scores_std, train_scores_mean + train_scores_std, </span><br><span class="line">                         alpha=0.1, color=&quot;b&quot;)</span><br><span class="line">        plt.fill_between(train_sizes, test_scores_mean - test_scores_std, test_scores_mean + test_scores_std, </span><br><span class="line">                         alpha=0.1, color=&quot;r&quot;)</span><br><span class="line">        plt.plot(train_sizes, train_scores_mean, &apos;o-&apos;, color=&quot;b&quot;, label=u&quot;训练集上得分&quot;)</span><br><span class="line">        plt.plot(train_sizes, test_scores_mean, &apos;o-&apos;, color=&quot;r&quot;, label=u&quot;交叉验证集上得分&quot;)</span><br><span class="line">    </span><br><span class="line">        plt.legend(loc=&quot;best&quot;)</span><br><span class="line">        </span><br><span class="line">        plt.draw()</span><br><span class="line">        plt.gca().invert_yaxis()</span><br><span class="line">        plt.show()</span><br><span class="line">    </span><br><span class="line">    midpoint = ((train_scores_mean[-1] + train_scores_std[-1]) + (test_scores_mean[-1] - test_scores_std[-1])) / 2</span><br><span class="line">    diff = (train_scores_mean[-1] + train_scores_std[-1]) - (test_scores_mean[-1] - test_scores_std[-1])</span><br><span class="line">    return midpoint, diff</span><br><span class="line"></span><br><span class="line">plot_learning_curve(clf, u&quot;学习曲线&quot;, X, y)</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/03/17/Kaggle-Titanic/16.png" width="80%" height="80%" align="center/"></p>
+<p>在实际数据上看，我们得到的learning curve没有理论推导的那么光滑哈，但是可以大致看出来，训练集和交叉验证集上的得分曲线走势还是符合预期的。</p>
+<p>目前的曲线看来，我们的model并不处于overfitting的状态(overfitting的表现一般是训练集上得分高，而交叉验证集上要低很多，中间的gap比较大)。因此我们可以再做些feature engineering的工作，添加一些新产出的特征或者组合特征到模型中。</p>
+<p>接下来，我们就该看看如何优化baseline系统了<br>我们还有些特征可以再挖掘挖掘</p>
+<ol>
+<li>比如说Name和Ticket两个属性被我们完整舍弃了(好吧，其实是一开始我们对于这种，每一条记录都是一个完全不同的值的属性，并没有很直接的处理方式)</li>
+<li>比如说，我们想想，年龄的拟合本身也未必是一件非常靠谱的事情</li>
+<li>另外，以我们的日常经验，小盆友和老人可能得到的照顾会多一些，这样看的话，年龄作为一个连续值，给一个固定的系数，似乎体现不出两头受照顾的实际情况，所以，说不定我们把年龄离散化，按区段分作类别属性会更合适一些</li>
+</ol>
+<p>那怎么样才知道，哪些地方可以优化，哪些优化的方法是promising的呢？<br>是的要做<strong>交叉验证(cross validation)!</strong></p>
+<p>因为test.csv里面并没有Survived这个字段(好吧，这是废话，这明明就是我们要预测的结果)，我们无法在这份数据上评定我们算法在该场景下的效果。。。<br>我们通常情况下，这么做cross validation：把train.csv分成两部分，一部分用于训练我们需要的模型，另外一部分数据上看我们预测算法的效果。<br>我们可以用<strong>scikit-learn的cross_validation</strong>来完成这个工作:<br>在此之前，咱们可以看看现在得到的模型的系数，因为系数和它们最终的判定能力强弱是正相关的.</p>
+<blockquote>
+<p>pd.DataFrame({“columns”:list(train_df.columns)[1:], “coef”:list(clf.coef_.T)})</p>
+</blockquote>
+<p><img src="/2018/03/17/Kaggle-Titanic/17.png" width="80%" height="80%" align="center/"></p>
+<p>上面的系数和最后的结果是一个正相关的关系<br>我们先看看那些权重绝对值非常大的feature，在我们的模型上：</p>
+<ul>
+<li><p>Sex属性，如果是female会极大提高最后获救的概率，而male会很大程度拉低这个概率。</p>
+</li>
+<li><p>Pclass属性，1等舱乘客最后获救的概率会上升，而乘客等级为3会极大地拉低这个概率。</p>
+</li>
+<li><p>有Cabin值会很大程度拉升最后获救概率(这里似乎能看到了一点端倪，事实上从最上面的有无Cabin记录的Survived分布图上看出，即使有Cabin记录的乘客也有一部分遇难了，估计这个属性上我们挖掘还不够</p>
+</li>
+<li><p>Age是一个负相关，意味着在我们的模型里，年龄越小，越有获救的优先权(还得回原数据看看这个是否合理）</p>
+</li>
+<li><p>有一个登船港口S会很大程度拉低获救的概率，另外俩港口压根就没啥作用(这个实际上非常奇怪，因为我们从之前的统计图上并没有看到S港口的获救率非常低，所以也许可以考虑把登船港口这个feature去掉试试)。</p>
+</li>
+<li><p>船票Fare有小幅度的正相关(并不意味着这个feature作用不大，有可能是我们细化的程度还不够，举个例子，说不定我们得对它离散化，再分至各个乘客等级上？)</p>
+</li>
+</ul>
+<p>噢啦，观察完了，我们现在有一些想法了，但是怎么样才知道，哪些优化的方法是promising的呢？</p>
+<p>恩，要靠交叉验证!</p>
+<p>好啦，这篇博客就写到这些，非常感谢寒小阳大佬的notebook案例教程，自己将会跟紧机器学习工程师课程的脚步，想进一步了解本案例的进阶版请关注Kaggle: Titanic(2).</p>
+<p>本篇文章仅用于学习交流，请勿用于商业！</p>
 
       
     </div>
@@ -371,6 +515,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/01/初识Tensorflow/" rel="prev" title="初识Tensorflow">
+                初识Tensorflow <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -480,7 +628,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

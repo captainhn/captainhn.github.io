@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="2015年11月9日，Google发布人工智能系统TensorFlow并宣布开源。 机器学习作为人工智能的一种类型，可以让软件根据大量的数据来对未来的情况进行阐述或预判。如今，领先的科技巨头无不在机器学习下予以极大投入。Facebook、苹果、微软，甚至国内的百度。Google 自然也在其中。「TensorFlow」是 Google 多年以来内部的机器学习系统。如今，Google正在将此系统成为开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识Tensorflow">
+<meta property="og:url" content="http://yoursite.com/2018/04/01/初识Tensorflow/index.html">
+<meta property="og:site_name" content="CHN&#39;s Blog">
+<meta property="og:description" content="2015年11月9日，Google发布人工智能系统TensorFlow并宣布开源。 机器学习作为人工智能的一种类型，可以让软件根据大量的数据来对未来的情况进行阐述或预判。如今，领先的科技巨头无不在机器学习下予以极大投入。Facebook、苹果、微软，甚至国内的百度。Google 自然也在其中。「TensorFlow」是 Google 多年以来内部的机器学习系统。如今，Google正在将此系统成为开">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-01T02:38:11.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识Tensorflow">
+<meta name="twitter:description" content="2015年11月9日，Google发布人工智能系统TensorFlow并宣布开源。 机器学习作为人工智能的一种类型，可以让软件根据大量的数据来对未来的情况进行阐述或预判。如今，领先的科技巨头无不在机器学习下予以极大投入。Facebook、苹果、微软，甚至国内的百度。Google 自然也在其中。「TensorFlow」是 Google 多年以来内部的机器学习系统。如今，Google正在将此系统成为开">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/01/初识Tensorflow/"/>
+
+
+
+
+
+  <title>初识Tensorflow | CHN's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CHN's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">What makes your heart sing?</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/01/初识Tensorflow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Haonan Cui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHN's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初识Tensorflow</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T08:56:33+08:00">
+                2018-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/01/初识Tensorflow/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/01/初识Tensorflow/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>2015年11月9日，Google发布人工智能系统TensorFlow并宣布开源。 机器学习作为人工智能的一种类型，可以让软件根据大量的数据来对未来的情况进行阐述或预判。如今，领先的科技巨头无不在机器学习下予以极大投入。Facebook、苹果、微软，甚至国内的百度。Google 自然也在其中。「TensorFlow」是 Google 多年以来内部的机器学习系统。如今，Google正在将此系统成为开源系统，并将此系统的参数公布给业界工程师、学者和拥有大量编程能力的技术人员。<br><a id="more"></a></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>作为业界大佬，Google将其Tensorflow开源供全世界学习是一件多么伟大的事情，即使他有着自己的商业考量，但我认为这体现了当今时代Learning by Sharing的理念，让我们能够用最前沿的技术尝试解决身边的每一件小事。</p>
+<p>在开始学习Tensorflow之前，我们可以先用 Python API 来尝试编写一段代码，看看他编程的大体思路。<br>下面这段简洁的 Python 代码生成了一些二维数据，然后用一个直线拟合它们。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import numpy as np </span><br><span class="line">#我们使用numpy来生成100个假数据</span><br><span class="line">x_data = np.float32(np.random.rand(2,100))</span><br><span class="line">y_data = np.dot([0.100,0.200],x_data)+0.300</span><br><span class="line">#构造一个线性模型</span><br><span class="line">b = tf.Variable(tf.zeros([1]))</span><br><span class="line">W = tf.Variable(tf.random_uniform([1,2],-1.0,1.0))</span><br><span class="line">y=tf.matmul(W,x_data)+b</span><br><span class="line">#最小化方差</span><br><span class="line">loss = tf.reduce_mean(tf.square(y-y_data))</span><br><span class="line">optimizer = tf.train.GradientDescentOptimizer(0.5)</span><br><span class="line">#初始化变量</span><br><span class="line">init = tf.initializa_all_variables()</span><br><span class="line">#启动图</span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(init)</span><br><span class="line">#拟合</span><br><span class="line">for step in xrange(0,201)</span><br><span class="line">    sess.run(train)</span><br><span class="line">    if step %20 ==0</span><br><span class="line">          print(step,sess.run(W),sess.run(b))</span><br><span class="line">#得到最佳拟合结果 W: [[0.100  0.200]], b: [0.300]</span><br></pre></td></tr></table></figure></p>
+<h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><p>环境配置是学习任何技术都避不开的步骤，而且有些软件配置起来确实麻烦，这些麻烦可能会困扰你好长时间，也许会衰减你学习的兴趣。下面我给大家提几点建议：</p>
+<ul>
+<li>最开始安装时一定要按照标准教程（如产品说明说、课本等）来走，不要随便从网上随便找个博客就来执行。</li>
+<li>安装时要看好清楚自己电脑的配置，选择合适的软件型号。</li>
+<li>安装过程中要细心！！！如果发生问题不要慌，看看前几步是否安装正确，也可以百度或者Google一下，看看网上或者相应的论坛里面是否有别人也遇到这样的问题，问一下他们是怎样解决的。</li>
+<li>或者选择重新安装这时要注意是否需要清理相应的注册表。</li>
+</ul>
+<p>下面我们来说一下安装Tensorflow的几个方法：</p>
+<blockquote>
+<p>二进制安装</p>
+</blockquote>
+<p>TensorFlow Python API 依赖 Python 2.7 版本.<br>在 Linux 和 Mac 下最简单的安装方式, 是使用 pip 安装.</p>
+<p>Ubuntu/Linux<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 仅使用 CPU 的版本</span><br><span class="line">$ pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.5.0-cp27-none-linux_x86_64.whl</span><br><span class="line"># 开启 GPU 支持的版本 (安装该版本的前提是已经安装了 CUDA sdk)</span><br><span class="line">$ pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.5.0-cp27-none-linux_x86_64.whl</span><br></pre></td></tr></table></figure></p>
+<p>Mac OS X<br>在 OS X 系统上, 我们推荐先安装 homebrew, 然后执行 brew install python , 以便能够使用 homebrew 中的 P<br>ython 安装 TensorFlow. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 当前版本只支持 CPU</span><br><span class="line">$ pip install https://storage.googleapis.com/tensorflow/mac/tensorflow-0.5.0-py2-none-any.whl</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>基于 Docker 的安装</p>
+</blockquote>
+<p>我们也支持通过 Docker 运行 TensorFlow. 该方式的优点是不用操心软件依赖问题.<br>首先, 安装 Docker. 一旦 Docker 已经启动运行, 可以通过命令启动一个容器:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it b.gcr.io/tensorflow/tensorflow</span><br></pre></td></tr></table></figure></p>
+<p>该命令将启动一个已经安装好 TensorFlow 及相关依赖的容器.<br>默认的 Docker 镜像只包含启动和运行 TensorFlow 所需依赖库的一个最小集.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> • b.gcr.io/tensorflow/tensorflow-full : 镜像中的 TensorFlow 是从源代码完整安装的, 包含了编译和运行</span><br><span class="line">TensorFlow 所需的全部工具. 在该镜像上, 可以直接使用源代码进行实验, 而不需要再安装上述的任何依</span><br><span class="line">赖.</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>基于 VirtualEnv 的安装</p>
+</blockquote>
+<p>我们推荐使用 virtualenv 创建一个隔离的容器, 来安装 TensorFlow. 这是可选的, 但是这样做能使排查安装问<br>题变得更容易.<br>首先, 安装所有必备工具:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 在 Linux 上:</span><br><span class="line">$ sudo apt-get install python-pip python-dev python-virtualenv</span><br><span class="line"># 在 Mac 上:</span><br><span class="line">$ sudo easy_install pip # 如果还没有安装 pip $ sudo pip install --upgrade virtualenv</span><br></pre></td></tr></table></figure></p>
+<p>接下来, 建立一个全新的 virtualenv 环境. 为了将环境建在 ~/tensorflow 目录下, 执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv --system-site-packages ~/tensorflow $ cd ~/tensorflow</span><br></pre></td></tr></table></figure></p>
+<p>然后, 激活 virtualenv:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source bin/activate # 如果使用 bash $ source bin/activate.csh # 如果使用 csh (tensorflow)$ # 终端提示符应该发生变化</span><br></pre></td></tr></table></figure></p>
+<p>在 virtualenv 内, 安装 TensorFlow:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip install --upgrade &lt;$url_to_binary.whl&gt;</span><br></pre></td></tr></table></figure></p>
+<p>接下来, 使用类似命令运行 TensorFlow 程序:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ cd tensorflow/models/image/mnist (tensorflow)$ python convolutional.py</span><br><span class="line"># 当使用完 TensorFlow</span><br><span class="line">(tensorflow)$ deactivate # 停用 virtualenv</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>尝试你的第一个 TensorFlow 程序</p>
+</blockquote>
+<p>(可选) 启用 GPU 支持 (可选) 启用 GPU 支持</p>
+<p>如果你使用 pip 二进制包安装了开启 GPU 支持的 TensorFlow, 你必须确保 系统里安装了正确的 CUDA sdk 和<br>CUDNN 版本</p>
+<p>你还需要设置 LD_LIBRARY_PATH 和 CUDA_HOME 环境变量. 可以考虑将下面的命令 添加到 ~/.bash_profile<br>文件中, 这样每次登陆后自动生效. 注意, 下面的命令 假定 CUDA 安装目录为 /usr/local/cuda :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH=&quot;$LD_LIBRARY_PATH:/usr/local/cuda/lib64&quot; export CUDA_HOME=/usr/local/cuda</span><br></pre></td></tr></table></figure>
+<p>运行 TensorFlow 运行 TensorFlow<br>打开一个 python 终端:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">&gt;&gt;&gt; import tensorflow as tf </span><br><span class="line">&gt;&gt;&gt; hello = tf.constant(&apos;Hello, TensorFlow!&apos;) </span><br><span class="line">&gt;&gt;&gt; sess = tf.Session() </span><br><span class="line">&gt;&gt;&gt; print(sess.run(hello) Hello, TensorFlow!) </span><br><span class="line">&gt;&gt;&gt; a = tf.constant(10) </span><br><span class="line">&gt;&gt;&gt; b = tf.constant(32) </span><br><span class="line">&gt;&gt;&gt; print(sess.run(a+b)) </span><br><span class="line">42 </span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如果你想直接通过源码进行安装，可以查看Tensorflow官方文档。</p>
+</blockquote>
+<p>训练你的第一个 TensorFlow 神经网络模型 训练你的第一个 TensorFlow 神经网络模型<br>从源代码树的根路径执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ cd tensorflow/models/image/mnist </span><br><span class="line">$ python convolutional.py </span><br><span class="line">Succesfully downloaded train-images-idx3-ubyte.gz 9912422 bytes. </span><br><span class="line">Succesfully downloaded train-labels-idx1-ubyte.gz 28881 bytes. </span><br><span class="line">Succesfully downloaded t10k-images-idx3-ubyte.gz 1648877 bytes. </span><br><span class="line">Succesfully downloaded t10k-labels-idx1-ubyte.gz 4542 bytes. </span><br><span class="line">Extracting data/train-images-idx3-ubyte.gz </span><br><span class="line">Extracting data/train-labels-idx1-ubyte.gz </span><br><span class="line">Extracting data/t10k-images-idx3-ubyte.gz </span><br><span class="line">Extracting data/t10k-labels-idx1-ubyte.gz </span><br><span class="line">Initialized! </span><br><span class="line">Epoch 0.00 Minibatch loss: 12.054, learning rate: 0.010000 Minibatch error: 90.6% Validation error: 84.6% </span><br><span class="line">Epoch 0.12 Minibatch loss: 3.285, learning rate: 0.010000 </span><br><span class="line">Minibatch error: 6.2% </span><br><span class="line">Validation error: 7.0% </span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p> 我们之前通过编程了解了Tensorflow编程的大概，但是我们并不了解他的原理，也就不会明白怎样去写自己的程序，下面我们就看一下tensorflow的基本语法，使用规则等，具体原理请看相关文档和书籍。</p>
+<blockquote>
+<p>综述</p>
+</blockquote>
+<p>使用 TensorFlow, 你必须明白 TensorFlow:</p>
+<ul>
+<li>使用图 (graph) 来表示计算任务.</li>
+<li>在被称之为 会话 (Session) 的上下文 (context) 中执行图.</li>
+<li>使用 tensor 表示数据.</li>
+<li>通过 变量 (Variable) 维护状态.</li>
+<li>使用 feed 和 fetch 可以为任意的操作(arbitrary  operation) 赋值或者从其中获取数据.</li>
+</ul>
+<p>TensorFlow 是一个编程系统, 使用图来表示计算任务. 图中的节点被称之为<br>op(operation 的缩写). 一个 op获得 0 个或多个 Tensor , 执行计算, 产生 0 个或多个 Tensor . 每个 Tensor 是一个类型化的多维数组. 例如, 你可以将一小组图像集表示为一个四维浮点数数组, 这四个维度分别是 [batch, height, width, channels] .</p>
+<p>一个 TensorFlow 图 描述 了计算的过程. 为了进行计算, 图必须在 会话 里被启动. 会话 将图的 op 分发到诸如 CPU 或 GPU 之类的 设备 上, 同时提供执行 op 的方法. 这些方法执行后, 将产生的 tensor 返回. 在 Python 语言中, 返回的 tensor 是 numpy ndarray 对象; 在 C 和 C++ 语言中, 返回的 tensor 是 tensorflow::Tensor 实例.</p>
+<blockquote>
+<p>计算图</p>
+</blockquote>
+<p>TensorFlow 程序通常被组织成一个构建阶段和一个执行阶段. 在构建阶段, op 的执行步骤 被描述成一个图. 在执行阶段, 使用会话执行执行图中的 op.</p>
+<p>例如, 通常在构建阶段创建一个图来表示和训练神经网络, 然后在执行阶段反复执行图中的训练 op.</p>
+<p>TensorFlow 支持 C, C++, Python 编程语言. 目前, TensorFlow 的 Python 库更加易用, 它提供了大量的辅助函数来简化构建图的工作, 这些函数尚未被 C 和 C++ 库支持.</p>
+<p>三种语言的会话库 (session libraries) 是一致的.</p>
+<p><strong>构建图</strong></p>
+<p>构建图的第一步, 是创建源 op (source op). 源 op 不需要任何输入, 例如 常量 (Constant) . 源 op 的输出被传递给其它 op 做运算.</p>
+<p>Python 库中, op 构造器的返回值代表被构造出的 op 的输出, 这些返回值可以传递给其它 op 构造器作为输入.</p>
+<p>TensorFlow Python 库有一个 默认图 (default graph) , op 构造器可以为其增加节点. 这个默认图对 许多程序来说已经足够用了. 可以阅读 Graph 类 文档 来了解如何管理多个图.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"># 创建一个常量 op, 产生一个 1x2 矩阵. 这个 op 被作为一个节点</span><br><span class="line"># 加到默认图中.</span><br><span class="line">#</span><br><span class="line"># 构造器的返回值代表该常量 op 的返回值.</span><br><span class="line">matrix1 = tf.constant([[3., 3.]])</span><br><span class="line"># 创建另外一个常量 op, 产生一个 2x1 矩阵.</span><br><span class="line">matrix2 = tf.constant([[2.],[2.]])</span><br><span class="line"># 创建一个矩阵乘法 matmul op , 把 &apos;matrix1&apos; 和 &apos;matrix2&apos; 作为输入.</span><br><span class="line"># 返回值 &apos;product&apos; 代表矩阵乘法的结果.</span><br><span class="line">product = tf.matmul(matrix1, matrix2)</span><br></pre></td></tr></table></figure>
+<p>默认图现在有三个节点, 两个 constant() op, 和一个 matmul() op. 为了真正进行矩阵相乘运算, 并得到矩阵乘法的 结果, 你必须在会话里启动这个图.</p>
+<p><strong>在一个会话中启动图 在一个会话中启动图</strong></p>
+<p>构造阶段完成后, 才能启动图. 启动图的第一步是创建一个 Session 对象, 如果无任何创建参数, 会话构造器将启动默认图. 想了解完整的会话 API, 请阅读Session 类.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 启动默认图.</span><br><span class="line">sess = tf.Session()</span><br><span class="line"># 调用 sess 的 &apos;run()&apos; 方法来执行矩阵乘法 op, 传入 &apos;product&apos; 作为该方法的参数.</span><br><span class="line"># 上面提到, &apos;product&apos; 代表了矩阵乘法 op 的输出, 传入它是向方法表明, 我们希望取回</span><br><span class="line"># 矩阵乘法 op 的输出.</span><br><span class="line">#</span><br><span class="line"># 整个执行过程是自动化的, 会话负责传递 op 所需的全部输入. op 通常是并发执行的.</span><br><span class="line">#</span><br><span class="line"># 函数调用 &apos;run(product)&apos; 触发了图中三个 op (两个常量 op 和一个矩阵乘法 op) 的执行.</span><br><span class="line">#</span><br><span class="line"># 返回值 &apos;result&apos; 是一个 numpy `ndarray` 对象.</span><br><span class="line">result = sess.run(product) print result # ==&gt; [[ 12.]]</span><br><span class="line"># 任务完成, 关闭会话.</span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure>
+<p>Session 对象在使用完后需要关闭以释放资源. 除了显式调用 close 外, 也可以使用 “with” 代码块 来自动完成关闭动作.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">with tf.Session() as sess: result = sess.run([product]) print result</span><br></pre></td></tr></table></figure></p>
+<p>在实现上, TensorFlow 将图形定义转换成分布式执行的操作, 以充分利用可用的计算资源(如 CPU 或 GPU). 一般你不需要显式指定使用 CPU 还是 GPU, TensorFlow 能自动检测. 如果检测到 GPU, TensorFlow 会尽可能地利用找到的第一个 GPU 来执行操作.</p>
+<p>如果机器上有超过一个可用的 GPU, 除第一个外的其它 GPU 默认是不参与计算的. 为了让 TensorFlow 使用这些GPU, 你必须将 op 明确指派给它们执行. with…Device 语句用来指派特定的 CPU 或 GPU 执行操作:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">with tf.Session() as sess: </span><br><span class="line">  with tf.device(&quot;/gpu:1&quot;): </span><br><span class="line">    matrix1 = tf.constant([[3., 3.]]) </span><br><span class="line">    matrix2 = tf.constant([[2.],[2.]]) </span><br><span class="line">    product = tf.matmul(matrix1, matrix2) </span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>设备用字符串进行标识. 目前支持的设备包括:</p>
+<p>• “/cpu:0” : 机器的 CPU.<br>• “/gpu:0” : 机器的第一个 GPU, 如果有的话.<br>• “/gpu:1” : 机器的第二个 GPU, 以此类推.</p>
+<blockquote>
+<p>交互式使用</p>
+</blockquote>
+<p>文档中的 Python 示例使用一个会话 Session 来 启动图, 并调用 Session.run() 方法执行操作.</p>
+<p>为了便于使用诸如 IPython 之类的 Python 交互环境, 可以使用 InteractiveSession 代替 Session 类, 使用Tensor.eval() 和 Operation.run() 方法代替 Session.run(),这样可以避免使用一个变量来持有会话.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 进入一个交互式 TensorFlow 会话.</span><br><span class="line">import tensorflow as tf sess = tf.InteractiveSession()</span><br><span class="line">x = tf.Variable([1.0, 2.0]) a = tf.constant([3.0, 3.0])</span><br><span class="line"># 使用初始化器 initializer op 的 run() 方法初始化 &apos;x&apos;</span><br><span class="line">x.initializer.run()</span><br><span class="line"># 增加一个减法 sub op, 从 &apos;x&apos; 减去 &apos;a&apos;. 运行减法 op, 输出结果</span><br><span class="line">sub = tf.sub(x, a) print sub.eval() # ==&gt; [-2. -1.]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Tensor</p>
+</blockquote>
+<p>TensorFlow 程序使用 tensor 数据结构来代表所有的数据, 计算图中, 操作间传递的数据都是 tensor. 你可以把 TensorFlow tensor 看作是一个 n 维的数组或列表. 一个 tensor 包含一个静态类型 rank, 和 一个 shape.</p>
+<blockquote>
+<p>变量</p>
+</blockquote>
+<p>Variables for more details. 变量维护图执行过程中的状态信息. 下面的例子演示了如何使用变量实现一个简单的计数器. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 创建一个变量, 初始化为标量 0.</span><br><span class="line">state = tf.Variable(0, name=&quot;counter&quot;)</span><br><span class="line"># 创建一个 op, 其作用是使 state 增加 1</span><br><span class="line">one = tf.constant(1) new_value = tf.add(state, one) update = tf.assign(state, new_value)</span><br><span class="line"># 启动图后, 变量必须先经过`初始化` (init) op 初始化,</span><br><span class="line"># 首先必须增加一个`初始化` op 到图中.</span><br><span class="line">init_op = tf.initialize_all_variables()</span><br><span class="line"># 启动图, 运行 op</span><br><span class="line">with tf.Session() as sess: # 运行 &apos;init&apos; op sess.run(init_op) # 打印 &apos;state&apos; 的初始值 print sess.run(state) # 运行 op, 更新 &apos;state&apos;, 并打印 &apos;state&apos; for _ in range(3): sess.run(update) print sess.run(state)</span><br><span class="line"># 输出:</span><br><span class="line"># 0</span><br><span class="line"># 1</span><br><span class="line"># 2</span><br><span class="line"># 3</span><br></pre></td></tr></table></figure>
+<p>代码中 assign() 操作是图所描绘的表达式的一部分, 正如 add() 操作一样. 所以在调用 run() 执行表达式之前, 它并不会真正执行赋值操作.</p>
+<p>通常会将一个统计模型中的参数表示为一组变量. 例如, 你可以将一个神经网络的权重作为某个变量存储在一个tensor 中. 在训练过程中, 通过重复运行训练图, 更新这个 tensor。</p>
+<blockquote>
+<p>Fetch</p>
+</blockquote>
+<p>为了取回操作的输出内容, 可以在使用 Session 对象的 run() 调用 执行图时, 传入一些 tensor, 这些 tensor 会帮助你取回结果. 在之前的例子里, 我们只取回了单个节点 state , 但是你也可以取回多个 tensor:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input1 = tf.constant(3.0) input2 = tf.constant(2.0) input3 = tf.constant(5.0) intermed = tf.add(input2, input3) mul = tf.mul(input1, intermed)</span><br><span class="line">with tf.Session() as sess: result = sess.run([mul, intermed]) print result</span><br><span class="line"># 输出:</span><br><span class="line"># [array([ 21.], dtype=float32), array([ 7.], dtype=float32)]</span><br></pre></td></tr></table></figure></p>
+<p>需要获取的多个 tensor 值，在 op 的一次运行中一起获得（而不是逐个去获取 tensor）。</p>
+<blockquote>
+<p>Feed</p>
+</blockquote>
+<p>上述示例在计算图中引入了 tensor, 以常量或变量的形式存储. TensorFlow 还提供了 feed 机制, 该机制 可以临时替代图中的任意操作中的 tensor 可以对图中任何操作提交补丁, 直接插入一个 tensor.</p>
+<p>feed 使用一个 tensor 值临时替换一个操作的输出结果. 你可以提供 feed 数据作为 run() 调用的参数. feed只在调用它的方法内有效, 方法结束, feed 就会消失. 最常见的用例是将某些特殊的操作指定为 “feed” 操作,标记的方法是使用 tf.placeholder() 为这些操作创建占位符.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input1 = tf.placeholder(tf.types.float32) input2 = tf.placeholder(tf.types.float32) output = tf.mul(input1, input2)</span><br><span class="line">with tf.Session() as sess: print sess.run([output], feed_dict=&#123;input1:[7.], input2:[2.]&#125;)</span><br><span class="line"># 输出:</span><br><span class="line"># [array([ 14.], dtype=float32)]</span><br></pre></td></tr></table></figure></p>
+<h3 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h3><p><a href="http://wiki.jikexueyuan.com/project/tensorflow-zh/" target="_blank" rel="noopener">TensorFlow 官方文档中文版</a><br><a href="http://devdocs.io/tensorflow~python/" target="_blank" rel="noopener">TensorFlow 官方文档</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/17/Kaggle-Titanic/" rel="next" title="Machine Learning | Kaggle: Titanic(1)">
+                <i class="fa fa-chevron-left"></i> Machine Learning | Kaggle: Titanic(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/01/Kaggle-Mnist/" rel="prev" title="Kaggle | Mnist(1)">
+                Kaggle | Mnist(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/avatar.png"
+                alt="Haonan Cui" />
+            
+              <p class="site-author-name" itemprop="name">Haonan Cui</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载与安装"><span class="nav-number">2.</span> <span class="nav-text">下载与安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本原理"><span class="nav-number">3.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章："><span class="nav-number">4.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Haonan Cui</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GiaasJktzc5Yp2Dh63a7eIiR-gzGzoHsz',
+        appKey: '6nRQyyJGa2DwLUOqfAoISdCt',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
