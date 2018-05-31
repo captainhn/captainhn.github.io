@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/03/06/用Hexo+Github%20搭建属于自己的博客/21.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/06/用Hexo+Github%20搭建属于自己的博客/22.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/06/用Hexo+Github%20搭建属于自己的博客/23.png">
-<meta property="og:updated_time" content="2018-03-17T12:30:34.468Z">
+<meta property="og:updated_time" content="2018-05-30T10:42:42.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Hexo+Github 搭建属于自己的博客">
 <meta name="twitter:description" content="如果你想要清晰地思考，就必须远离人群。但是走得越远，你的处境就会越困难，收到的阻力也会越大。因为你没有迎合社会习俗，而是一步步地与它背道而驰。如果自己就是潮水的一部分 ，怎么能看见潮流的方向呢？你只能永远保持质疑，问自己，什么话是我不能说的？为什么？——Paul Graham《不能说的话》">
@@ -455,7 +455,10 @@
 </ol>
 <h3 id="更换域名"><a href="#更换域名" class="headerlink" title="更换域名"></a>更换域名</h3><ol>
 <li>首先申请一个域名，腾讯云有对学生的优惠项目可以考虑。</li>
-<li>然后修改hexo的配置。在source下新建CNAME文件（没有后缀名），内容为yourdomin.xxx。然后再执行一下hexo d -g，重新上传自己的博客。然后登入你的GitHub，在setting页面你就会看到修改提示。</li>
+<li>然后修改hexo的配置。在source下新建CNAME文件（没有后缀名），内容为yourdomin.xxx。然后再执行一下hexo d -g，重新上传自己的博客。然后登入你的GitHub，在setting页面你就会看到修改提示。<h3 id="渲染MathJax数学公式"><a href="#渲染MathJax数学公式" class="headerlink" title="渲染MathJax数学公式"></a>渲染MathJax数学公式</h3></li>
+<li>在你的主题配置文件中将关于mathjax的两个false改为true</li>
+<li>在你的文章的标头加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mathjax: true</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <h3 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h3><p><a href="http://blog.csdn.net/R3lish/article/details/51972363" target="_blank" rel="noopener"> 【Git】’ssh-keygen’ 不是内部或外部命令，也不是可运行的程序 或批处理文件</a><br><a href="https://segmentfault.com/a/1190000008738089" target="_blank" rel="noopener">2017年最新基于hexo搭建个人免费博客——从零开始</a><br><a href="http://blog.csdn.net/gdutxiaoxu/article/details/53576018" target="_blank" rel="noopener">手把手教你用Hexo+Github 搭建属于自己的博客</a></p>
 
@@ -600,7 +603,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -637,7 +640,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo简介"><span class="nav-number">1.</span> <span class="nav-text">Hexo简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github简介"><span class="nav-number">2.</span> <span class="nav-text">Github简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown简介"><span class="nav-number">3.</span> <span class="nav-text">Markdown简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大致步骤"><span class="nav-number">4.</span> <span class="nav-text">大致步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Node-js环境"><span class="nav-number">4.1.</span> <span class="nav-text">配置Node.js环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Git环境"><span class="nav-number">4.2.</span> <span class="nav-text">配置Git环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册Github"><span class="nav-number">4.3.</span> <span class="nav-text">注册Github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Hexo"><span class="nav-number">4.4.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将Hexo和GitHub连接"><span class="nav-number">4.5.</span> <span class="nav-text">将Hexo和GitHub连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写"><span class="nav-number">4.6.</span> <span class="nav-text">编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题"><span class="nav-number">4.7.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#博客配置"><span class="nav-number">4.8.</span> <span class="nav-text">博客配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更换域名"><span class="nav-number">4.9.</span> <span class="nav-text">更换域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章："><span class="nav-number">4.10.</span> <span class="nav-text">参考文章：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo简介"><span class="nav-number">1.</span> <span class="nav-text">Hexo简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github简介"><span class="nav-number">2.</span> <span class="nav-text">Github简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown简介"><span class="nav-number">3.</span> <span class="nav-text">Markdown简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大致步骤"><span class="nav-number">4.</span> <span class="nav-text">大致步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Node-js环境"><span class="nav-number">4.1.</span> <span class="nav-text">配置Node.js环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Git环境"><span class="nav-number">4.2.</span> <span class="nav-text">配置Git环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册Github"><span class="nav-number">4.3.</span> <span class="nav-text">注册Github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Hexo"><span class="nav-number">4.4.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将Hexo和GitHub连接"><span class="nav-number">4.5.</span> <span class="nav-text">将Hexo和GitHub连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写"><span class="nav-number">4.6.</span> <span class="nav-text">编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题"><span class="nav-number">4.7.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#博客配置"><span class="nav-number">4.8.</span> <span class="nav-text">博客配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更换域名"><span class="nav-number">4.9.</span> <span class="nav-text">更换域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染MathJax数学公式"><span class="nav-number">4.10.</span> <span class="nav-text">渲染MathJax数学公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章："><span class="nav-number">4.11.</span> <span class="nav-text">参考文章：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -896,6 +899,8 @@ var jiathis_config={
   
 
   
+  
+
 
   
 
