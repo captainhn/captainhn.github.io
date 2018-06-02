@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="虽然现在出现了很多性能优秀的分类算法，包括svm，RF，GBDT，DNN等，LR作为最简单的分类算法，依然是工业界主流的分类算法之一。那么LR到底有什么魔力，即使面对如此众多的 “高手” 面前，依然屹立不倒呢？ 市面上关于LR的书籍和文章大部分的讲解都是针对LR一些基本理论或者一些推导公式。掌握这些还远远不够，要想让LR发挥其最大效果，必须要有一套科学的、严密的数据预处理流程。本文将以金融评分卡模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LR之金融评分卡模型 | August分享">
+<meta property="og:url" content="http://yoursite.com/2018/06/01/金融评分卡模型/index.html">
+<meta property="og:site_name" content="CHN&#39;s Blog">
+<meta property="og:description" content="虽然现在出现了很多性能优秀的分类算法，包括svm，RF，GBDT，DNN等，LR作为最简单的分类算法，依然是工业界主流的分类算法之一。那么LR到底有什么魔力，即使面对如此众多的 “高手” 面前，依然屹立不倒呢？ 市面上关于LR的书籍和文章大部分的讲解都是针对LR一些基本理论或者一些推导公式。掌握这些还远远不够，要想让LR发挥其最大效果，必须要有一套科学的、严密的数据预处理流程。本文将以金融评分卡模">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/4.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/5.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/6.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/7.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/8.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/9.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/10.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/11.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/12.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/13.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/14.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/15.png">
+<meta property="og:updated_time" content="2018-06-02T10:06:41.076Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LR之金融评分卡模型 | August分享">
+<meta name="twitter:description" content="虽然现在出现了很多性能优秀的分类算法，包括svm，RF，GBDT，DNN等，LR作为最简单的分类算法，依然是工业界主流的分类算法之一。那么LR到底有什么魔力，即使面对如此众多的 “高手” 面前，依然屹立不倒呢？ 市面上关于LR的书籍和文章大部分的讲解都是针对LR一些基本理论或者一些推导公式。掌握这些还远远不够，要想让LR发挥其最大效果，必须要有一套科学的、严密的数据预处理流程。本文将以金融评分卡模">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/01/金融评分卡模型/"/>
+
+
+
+
+
+  <title>LR之金融评分卡模型 | August分享 | CHN's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CHN's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">What makes your heart sing?</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/金融评分卡模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Haonan Cui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHN's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LR之金融评分卡模型 | August分享</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T17:35:19+08:00">
+                2018-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/01/金融评分卡模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/01/金融评分卡模型/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>虽然现在出现了很多性能优秀的分类算法，包括svm，RF，GBDT，DNN等，LR作为最简单的分类算法，依然是工业界主流的分类算法之一。那么LR到底有什么魔力，即使面对如此众多的 “高手” 面前，依然屹立不倒呢？ 市面上关于LR的书籍和文章大部分的讲解都是针对LR一些基本理论或者一些推导公式。掌握这些还远远不够，要想让LR发挥其最大效果，必须要有一套科学的、严密的数据预处理流程。<br>本文将以金融评分卡模型为例，讲解一整套LR配套的数据处理流程，包括数据获取，EDA (探索性数据分析)，数据预处理，到变量筛选, LR模型的开发和评估，生成评分卡模型。<br><a id="more"></a></p>
+<h3 id="评分卡模型"><a href="#评分卡模型" class="headerlink" title="评分卡模型"></a>评分卡模型</h3><p>风控顾名思义就是风险控制，指风险管理者采取各种措施和方法，消灭或减少风险事件发生的各种可能性，或风险 事件发生时造成的损失。</p>
+<p><strong>信用评分卡模型</strong>是最常见的金融风控手段之一，它是指根据客户的各种属性和行为数据，利用一定的信用评分模 型，对客户进行信用评分，据此决定是否给予授信以及授信的额度和利率，从而识别和减少在金融交易中存在的交 易风险。<br>评分卡模型在不同的业务阶段体现的方式和功能也不一样。按照借贷用户的借贷时间，评分卡模型可以划分为以下 三种：</p>
+<ul>
+<li>贷前：申请评分卡（Application score card），又称A卡</li>
+<li>贷中：行为评分卡（Behavior score card），又称B卡</li>
+<li>贷后：催收评分卡（Collecton score card），又称C卡</li>
+</ul>
+<p>评分卡示意图：</p>
+<p><img src="/2018/06/01/金融评分卡模型/1.png" width="80%" height="80%" align="center/"></p>
+<p>一个用户总的评分等于基准分加上对客户各个属性的评分。以上面的评分 卡为例：<br>客户评分 = 基准分 + 年龄评分 + 性别评分 + 婚姻状况评分 + 学历评分 + 月收入评分</p>
+<p>下面我们来解决得出以上评分卡模型的三大关键问题：</p>
+<ul>
+<li><strong>用户的属性有很多维度，而评分卡模型所选用的字段在30下以下，那么怎样挑选这些字段</strong></li>
+<li><strong>评分法卡模型采用的是对每个字段的分段进行评分，那么怎样对评分卡进行有效分段呢？ </strong></li>
+<li><strong>最关键的，也是大家最关心的问题是怎样对字段的每个分段进行评分呢？这个评分是怎么来的？</strong></li>
+</ul>
+<h3 id="模型卡模型的开发"><a href="#模型卡模型的开发" class="headerlink" title="模型卡模型的开发"></a>模型卡模型的开发</h3><h4 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h4><p>信用评分卡的开发有一套科学的、严密的流程，包括数据获取，EDA，数据预处理，到变量筛选， 模型的开发和 评估，生成评分卡模型以及布置上线和模型监测。典型的开发流程如下图所示：</p>
+<p><img src="/2018/06/01/金融评分卡模型/2.png" width="80%" height="80%" align="center/"><br>本文仅介绍线下评分卡模型的开发，即<strong>数据获取，EDA, 数据预处理，变量筛选， 模型开发，模型评估和生成评 分卡</strong>。</p>
+<h4 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h4><p>数据获取的途径主要有两个：</p>
+<ul>
+<li>金融机构自身字段：例如用户的年龄，户籍，性别，收入，负债比，在本机构的借/还款行为。</li>
+<li>第三方机构的数据：用户在其他平台上的借贷，消费，个人信息等数据。<h4 id="EDA-（探索性数据分析）"><a href="#EDA-（探索性数据分析）" class="headerlink" title="EDA （探索性数据分析）"></a>EDA （探索性数据分析）</h4>主要是获取数据的大概情况，例如每个字段的缺失值情况、异常值情况、平均值、中位数、最大值、最小 值、分布情况等。以便制定合理的数据预处理方案。 <h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4>主要包括数据清洗、变量分箱和WOE编码等三个步骤。<h6 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h6>主要是对原始数据中的脏数据、缺失值、异常值进行处理。关于对缺失值和异常值的处理，我们删除缺失率超过某一阈值（阈值自行设定，可以为30%，50%，90%等）的变量，将剩余变量中 的缺失值和异常值作为一种状态</li>
+</ul>
+<h5 id="变量分箱"><a href="#变量分箱" class="headerlink" title="变量分箱"></a>变量分箱</h5><p>评分卡是怎样对变量进行分段？<br><strong>评分卡模型是通过对变量进行分箱来实现变量的分段。</strong><br>以下为分箱的定义：</p>
+<ul>
+<li>对连续变量进行分段离散化</li>
+<li>将多状态的离散变量进行合并，减少离散变量的状态数</li>
+</ul>
+<p>常见的分箱类型有以下几种：</p>
+<p><img src="/2018/06/01/金融评分卡模型/3.png" width="80%" height="80%" align="center/"></p>
+<ol>
+<li>无监督分箱<br>无监督分箱主要包含：</li>
+</ol>
+<ul>
+<li>等频分箱：把自变量从小到大的顺序排序，根据自变量的个数等分成K部分，每部分作为一个分箱。</li>
+<li>等距分箱：把自变量从小到大的顺序排序，将自变量的取值范围分为K个等距的区间，每个区间作为一个分箱</li>
+<li>聚类分箱：用K-MEANS聚类算法将自变量聚为K类，但在聚类的过程中保证分箱的有序性<br>由于无监督分箱<strong>仅仅考虑 了各个变量本身的数据结构，并没有考虑自变量与目标变量之间的关系</strong>，因此无监督分箱不一定会带来模型性能的提升。</li>
+</ul>
+<ol>
+<li>有监督分箱<br>包括Split分箱和Merge 分箱</li>
+</ol>
+<ul>
+<li>Split 分箱是一种自上而下的（基于分裂算法）的数据分段方法。如下图所示，Split分箱和决策树比较相似，切分点的选择指标主要有entropy,gini指数和IV值等。<br><img src="/2018/06/01/金融评分卡模型/4.png" width="80%" height="80%" align="center/"></li>
+<li>Merge分箱。是一种自低向上（基于合并的）数据离散化算法。Merge 分箱常见的类型为Chimerge分箱<br><img src="/2018/06/01/金融评分卡模型/5.png" width="80%" height="80%" align="center/"></li>
+</ul>
+<p><strong>Chimerge 分箱</strong>是目前最流行的分箱方式之一，其基本思想是如果两个相邻的区间具有类似的类分布，则这两个区 间合并；否则，它们应保持分开。Chimerge通常采用<strong>卡方值</strong>来衡量两相邻区间的类分布情况。 </p>
+<p>Chimerge的具体用法如下：</p>
+<ul>
+<li>输入：分箱的最大区间数n</li>
+<li>初始化：</li>
+</ul>
+<ol>
+<li>连续值按升序排序，离散值先转化为坏客户的概率，然后按照升序排列；</li>
+<li>对于变量状态数量大于某一阈值 (阈值可以自定义，建议为100) 的变量，为了减少计算量利用等频分箱 进行粗分箱。 </li>
+<li>若有缺失值，则缺失值单独最为一个分箱</li>
+</ol>
+<ul>
+<li>合并区间</li>
+</ul>
+<ol>
+<li>计算每一对相邻区间的卡方值；</li>
+<li>将卡方值最小的一对区间合并<br>\begin{equation}<br>X^{2} = \sum_{i=1}^{2}\sum_{j=1}^{2}\frac{(A_{ij})^{2}}{E_{ij]}}<br>\end{equation}</li>
+</ol>
+<p>$A_{ij}$：第i区间第j类的实例数量<br>$E_{ij}：E_{ij} = \frac{N_{i}}{N} \times C_{j}$， N是合并区间的样本数，$N_{i}$是第i组的样本数，$C_{j}$， 是第j类样本在合并区间的样本数</p>
+<ol>
+<li>重复上面两个步骤，直到分箱数量不大于n。</li>
+</ol>
+<ul>
+<li>分箱后处理</li>
+</ul>
+<ol>
+<li>对于坏客户比例为0和1的分箱进行合并（一个分箱中不能全为坏客户）</li>
+<li>对于分箱后某一箱样本占比超过95%的箱子进行删除</li>
+<li>检查缺失分箱的坏客户比例是否和非缺失值分箱相等，如果相等，进行合并！！</li>
+</ol>
+<ul>
+<li>输出：分箱后的数据和分箱区间</li>
+</ul>
+<p><strong>问题</strong>：一般一个评分卡模型的有效持续时间是一个月左右甚至更长的时间，中间也许会有一些客户的数据发生变化，如一个月内突然没了工作，工资上涨等，那么我们怎样去处理这些情况呢<br><strong>回答</strong>：这里我们需要假设客户在短期内属性变化不会太大，即使客户的属性变化，只要在同一分箱中，依然会给这个客户 相同的分数。举例来说：对于工资我们可以划分为5箱，即&lt;3000, 3000-5000, 5000-8000, 8000-12000, &gt;12000， 假设一个客户的工资为9000，在一个月内工资上涨，那我们就假设这个客户的工资上涨之后不会超过12000，也就 是说依然在8000-12000分箱中。这样在考虑客户工资变化的前提下，不会因为客户工资的发生变化而变成了另外 一个人，保证了模型的稳定性。<br><strong>问题</strong>：将变量中的缺失值作为一种状态是什么意思？<br><strong>回答</strong>：这里的意思是说让缺失值单独分为一箱</p>
+<p><strong>问题</strong>：比如年龄变量中出现500这种异常值该怎样处理？<br><strong>回答</strong>：对于年龄特征我们划分为4段，即18-25, 25-35, 35-55, &gt; 55，我们可以直接把500划分到&gt;55这一个分箱中。另外 我们也可以通过一些手段检测出异常值，将异常值单独分为一箱。或者直接删除。</p>
+<p>总结一下特征分箱的优势：</p>
+<ul>
+<li>特征分箱可以有效的处理特征中的缺失值和异常值</li>
+<li>特征分箱后，数据和模型会更加稳定</li>
+<li>特征分箱可以简化逻辑回归模型，降低模型的过拟合的风险，提高模型的泛化能力</li>
+<li>将所有的特征统一转化为类别型变量</li>
+<li>分箱后的变量才可u使用标准的评分卡模式，即对不同 的分段进行评分</li>
+</ul>
+<h5 id="WOE-编码"><a href="#WOE-编码" class="headerlink" title="WOE  编码"></a>WOE  编码</h5><p>分箱后我们便得到了一系列的离散变量，下面需要对变量进行编码，将离散变量转化为连续变量。WOE编码是评分卡模型常见的编码方式。<br>WOE称为证据权重（weight of evidence）,是一种有监督的编码方式，将预测类别的集中度的属性作为编码的数值。</p>
+<p>\begin{equation}<br>WOE_{i} = log(\frac{P_{i1}}{p_{i0}})= log(\frac{B_{i}/B_{T}}{G_{i}/G_{T}})<br>\end{equation}</p>
+<p>$P_{i1}$是第i箱中坏客户占所有坏客户的比例<br>$P_{i0}$是第i箱中好客户占所有好客户的比例<br>$B_{i}$是第i箱中坏客户人数<br>$G_{i}$是第i箱中好客户的人数<br>$B_{T}$是所有坏客户的人数<br>$G_{T}$是所有好客户的人数<br>公式中的log函数通常取以e 为底。即为<strong>ln。</strong></p>
+<p>从以上公式中我们可以发现，WOE表示的实际上是“当前分箱中坏客户占所有坏客户的比例”和“当前分箱中好客户 占所有好客户的比例”的差异。<br>对以上公式做一个简单变换，可以得到：<br>\begin{equation}<br>WOE_{i} = log(\frac{B_{i}/B_{T}}{G_{i}/G_{T}}) = log(\frac{B_{i}/G_{i}}{B_{T}/G_{T}})<br>\end{equation}</p>
+<p>变换以后可以看出，WOE也可以这么理解，当前分箱中坏客户和好客户的比值，和所有样本中这个比值的差异 (是一个定值！也 就是我们随机的坏客户和好客户的比例).</p>
+<p>WOE越大，这种差异越大，当前分组里的坏客户的可能性就越大，WOE 越小，差异越小，这个分组里的样本响应的可能性就越小。<br>当分箱中坏客户和好客户的比例等于随机坏客户和好客 户的比值时，说明这个分箱没有预测能力，即WOE=0。 </p>
+<p>WOE具体计算过程如下表所示：<br><img src="/2018/06/01/金融评分卡模型/6.png" width="80%" height="80%" align="center/"></p>
+<p><strong>问题：</strong>我们还有没有学过其他编码方式？这里为什么选择采用WOE编码？<br><strong>回答：</strong>我们还学过one-hot编码。one-hot 编码会将原始变量中的每个状态都做为作为一个新的特征，当原始特征状态较 多时，数据经过one-hot编码之后特征数量会成倍的增加，同时新特征也会变得过于稀疏。在进行变量筛选的过程 中，也会出现原始特征的一部分状态被筛选出来，另一部分状态未被筛选出来，造成特征的不完整。</p>
+<p>而WOE编码不仅可以解决以上这些问题，同时还可以将特征转化为线性。</p>
+<p>我们知道，逻辑回归的假设函数为:<br>\begin{equation}<br>P = \frac{1}{1+e^{-\theta^{T}x}}<br>\end{equation}<br>其中p为样本为坏客户的概率，1-p为样本是好客户的概率，整理得：<br>\begin{equation}<br>log(\frac{p}{1-p}) =\theta^{T}x<br>\end{equation}<br>其中$odds = \frac{p}{1-p}$</p>
+<p>我们再来看看WOE编码的定义：</p>
+<p>\begin{equation}<br>WOE_{i} = log(\frac{B_{i}/G_{i}}{B_{T}/G_{T}})<br>\end{equation}</p>
+<p>\begin{equation}<br>WOE_{i} = log(\frac{B_{i}}{G_{i}}) - log(\frac{B_{T}}{G_{T}})<br>\end{equation}</p>
+<p>\begin{equation}<br>WOE_{i} = log(\frac{B_{i}/(B_{i} + G_{i})}{G_{i}/(B_{i} + G_{i})}) - Const<br>\end{equation}</p>
+<p>\begin{equation}<br>WOE_{i} = log(\frac{p_{i}}{1-p_{i}})- Const<br>\end{equation}</p>
+<p>其中p_{i}表示第i个分箱中坏客户的比率，类比$\frac{p_{i}}{1-p_{i}}$ 表示的是第i个分箱中的odds ，我们设$\frac{p}{1-p} = C$ ， 那么 $\frac{p_{i}}{1-p_{i}} = C_{i}$，逻辑回归假设函数可以化简为：</p>
+<p>\begin{equaton}<br>C = \theta^{T}(C_{i} - Const)<br>\end{equaton}</p>
+<p>实际上WOE编码相当于把分箱后的特征从非线性可分映射到近似线性可分的空间内。如下图所示:</p>
+<p><img src="/2018/06/01/金融评分卡模型/7.png" width="80%" height="80%" align="center/"></p>
+<p><strong>问题：</strong>WOE编码为什么不直接表示为该分箱好坏客户数量之比，即 $WOE_{i} = log(\frac{B_{i}}{G_{i}})$?</p>
+<p>如果直接表示为表示为某个分箱好坏客户数量之比，WOE的值在很大程度上受到好坏客户的影响，在严重非均衡的 问题中，该比值会非常小，严重影响woe的值。 </p>
+<p>这里我们<strong>举个例子</strong>，假设数据中共有5000个好客户和50个坏客户，共有三个分箱，箱1的好客户和坏客户分别有 1000个和20个，箱2好客户和坏客户分别有1000个和10个，箱3好客户和坏客户分别有1000个和5个。 显然，箱1和箱3都具有较好的预测能力，而箱2因为坏客户比例和随机预测类似，因此不具有预测能力。</p>
+<p>我们用法1 原公式来计算：</p>
+<p><img src="/2018/06/01/金融评分卡模型/8.png" width="80%" height="80%" align="center/"></p>
+<p>从以上结果我们发现，箱2对应的WOE=0，说明不具有预测能力，而箱1和箱3的WOE分别为log2和-log2，均远离0 点，具有预测能力。</p>
+<p>用法2 利用分箱中好坏客户数量来计算：</p>
+<p><img src="/2018/06/01/金融评分卡模型/9.png" width="80%" height="80%" align="center/"><br>然而从法2得到的结果中只能判断三个分箱的坏客户的比例大小情况，无法判断箱1，箱2和箱3的预测能力。</p>
+<p><strong>WOE编码的优势：</strong></p>
+<ul>
+<li>可以提升模型的预测效果</li>
+<li>将自变量规范到同一尺度</li>
+<li>WOE能反映自变量取值的贡献情况</li>
+<li>有利于对变量的每个分箱进行评分 </li>
+<li>转化为连续变量之后，便于分析变量与变量之间的相关性</li>
+<li>与独热向量编码相比，可以保证变量的完整性，同时避免稀疏矩阵和维度灾难</li>
+</ul>
+<h4 id="变量筛选"><a href="#变量筛选" class="headerlink" title="变量筛选"></a>变量筛选</h4><p>用户的属性有千千万万个维度，而评分卡模型所选用的字段在30个以下，那么怎样挑选这些字段 呢？</p>
+<p>挑选入模变量需要考虑很多因素，比如：变量的预测能力，变量之间的线性相关性，变量的简单性（容易生成和使 用），变量的强壮性（不容易被绕过），变量在业务上的可解释性（被挑战时可以解释的通）等等。其中最主要和 最直接的衡量标准是变量的预测能力和变量的线性相关性。本文主要探讨基于变量预测能力的单变量筛选，变量两 两相关性分析，变量的多重共线性分析。 </p>
+<p>#####单变量筛选</p>
+<p>单变量的筛选基于变量的预测能力，常用的方法：</p>
+<ul>
+<li>基于IV值的变量筛选</li>
+<li>基于stepwise的变量筛选</li>
+<li>基于特征重要度的变量筛选：RF,GBDT….</li>
+<li>基于LASSO正则化的变量筛选</li>
+</ul>
+<h6 id="基于IV值的变量筛选"><a href="#基于IV值的变量筛选" class="headerlink" title="基于IV值的变量筛选"></a>基于IV值的变量筛选</h6><p>IV值称为信息价值（information value）,是目前评分卡模型中筛选变量最常用的指标之一，自变量的IV值越大，表示自变量的预测能力越强，类似的指标还有信息增益、基尼(gini)系数等。常用判断标准如下：</p>
+<p><img src="/2018/06/01/金融评分卡模型/10.png" width="80%" height="80%" align="center/"></p>
+<p>那么怎么计算变量中第  个分箱对应的 IV 值的计算公式为：</p>
+<p>\begin{equation}<br>IV_{I} = (\frac{B_{i}}{B_{T}} - \frac{G_{i}}{G_{T}}) <em> log(\frac{B_{i}/B_{T}}{G_{i}/G_{T}}) = (\frac{B_{i}}{B_{T}} - \frac{G_{i}}{G_{T}}) </em> WOE_{i}<br>\end{equation}</p>
+<p>变量对应的IV值为所有分箱对应的 IV 值之和：<br>\begin{equation}<br>IV = \sum_{i}^{n} IV_{i}<br>\end{equation}</p>
+<p>从上式我们可以看出变量的 IV 值实际上可以看作是是变量各个分箱的加权求和。且和决策树中的交叉熵有异曲同工之妙。以 下为交叉熵公式：<br>\begin{equation}<br>Ent(D) = - \sum_{i=1}^{n} p_{i} logp_{i}<br>\end{equation}</p>
+<p>IV值的具体的计算流程如下：</p>
+<p><img src="/2018/06/01/金融评分卡模型/11.png" width="80%" height="80%" align="center/"></p>
+<p><strong>案例：</strong></p>
+<p>自变量为age，Y表示目标变量，其中bad代表坏客户，good代表好客户。我们希望能用自变量age来预测好坏客户 的概率，以此来决定是否放贷。</p>
+<p><img src="/2018/06/01/金融评分卡模型/12.png" width="80%" height="80%" align="center/"></p>
+<p>从以上案例中我们可以分析出：</p>
+<ol>
+<li>当前分箱中，坏客户占比越大，WOE值越大；</li>
+<li>当前分箱中WOE的正负，由当前分箱中好坏客户比例，与样本整体好坏客户比例的大小关系决定。 </li>
+</ol>
+<ul>
+<li>当分箱的比例小于整体比例时，WOE为负 。例如年龄18-30分箱中：250/4750&lt;1000/9000 ，该分箱 对应的WOE为负值； </li>
+<li>当分箱的比例大于整体比例时，WOE为正。例如年龄45-55分箱中：250/1200&gt;1000/9000 ，该分箱 对应的WOE为正值； </li>
+<li>当分箱的比例等于整体比例时，WOE为0。例如年龄30-45分箱中：300/2700 = 1000/9000 ，该分箱 对应的WOE为0</li>
+</ul>
+<ol>
+<li>WOE的取值范围是[-∞,+∞]，当分箱中好坏客户比例等于整体好坏客户比例时，WOE为0。 </li>
+<li>对于变量的一个分箱，这个分组的好坏客户比例与整体好坏客户比例相差越大，IV值越大，否则，IV值越小。 </li>
+<li>IV值的取值范围是[0,+∞)，当分箱中只包含好客户或坏客户时，IV = +∞，当分箱中好坏客户比例等于整体好坏 客户比例时，IV为0。 </li>
+</ol>
+<h6 id="基于stepwise的变量筛选"><a href="#基于stepwise的变量筛选" class="headerlink" title="基于stepwise的变量筛选"></a>基于stepwise的变量筛选</h6><p>基于基于stepwise的变量筛选方法也是评分卡中变量筛选最常用的方法之一。具体包括三种筛选变量的方式：</p>
+<ul>
+<li><strong>前向选择forward</strong>：逐步将变量一个一个放入模型，并计算相应的指标，如果指标值符合条件，则保留，然后 再放入下一个变量，直到没有符合条件的变量纳入或者所有的变量都可纳入模型。 </li>
+<li><strong>后向选择backward</strong>：一开始将所有变量纳入模型，然后挨个移除不符合条件的变量，持续此过程，直到留下 所有最优的变量为止。 </li>
+<li><strong>逐步选择stepwise</strong>：该算法是向前选择和向后选择的结合，逐步放入最优的变量、移除最差的变量。</li>
+</ul>
+<h6 id="基于特征重要度的变量筛选"><a href="#基于特征重要度的变量筛选" class="headerlink" title="基于特征重要度的变量筛选"></a>基于特征重要度的变量筛选</h6><p>基于特征重要度的变量筛选方法是目前机器学习最热门的方法之一，其原理主要是通过随机森林和GBDT等集成模 型选取特征的重要度。</p>
+<ol>
+<li><strong>随机森林计算特征重要度的步骤</strong></li>
+</ol>
+<ul>
+<li>对每一颗决策树，选择相应的袋外数据（OOB）计算袋外数据误差，记为e rrOOB1； </li>
+<li>随机对袋外数据OOB所有样本的特征加入噪声干扰(随机的改变样本在该特征的值)，再次计算袋外数据 误差，记为errOOB2</li>
+<li>特征的重要度=$\sum(err_{OOB2} - err_{OOB1})/N$ ，N 表示随机森林中决策树的个数。 </li>
+</ul>
+<p><strong>当改变样本在该特征的值，若袋外数据准确率大幅度下降，则该特征对于样本的预测结果有很大影响，说明 特征的重要度比较高。 </strong></p>
+<ol>
+<li><strong>GBDT 梯度提升决策树(Gradient Boosting Decision Tree)计算特征重要度原理</strong>：<br>GBDT 中的决策树是回归树，预测结果是一个数值.要理解 GBDT，首先就要理解这个 B(Boosting)。Boosting 是一族可将弱学习器提升为强学习器的算法，属于集成学习（ensemble learning）的范畴。Boosting 方法基于这样一种思想：对于一个复杂任务来说，将多个专家的判断进行适当的综合所得出的判断，要比其中任何一个专家单独的判断要好。</li>
+</ol>
+<p>基于梯度提升算法的学习器叫做 GBM(Gradient Boosting Machine)。理论上，GBM 可以选择各种不同的学习算法作为基学习器。GBDT 实际上是 GBM 的一种情况。</p>
+<p><strong>Xgboost 和 GBDT 的区别：</strong><br>GBDT: </p>
+<ul>
+<li>GBDT 它的非线性变换比较多，表达能力强，而且不需要做复杂的特征工程和特征变换。</li>
+<li>GBDT 的缺点也很明显，Boost 是一个串行过程，不好并行化，而且计算复杂度高，同时不太适合高维稀疏特征；</li>
+<li>传统 GBDT 在优化时只用到一阶导数信息。<br>XGBoost:</li>
+<li>显示的把树模型复杂度作为正则项加到优化目标中。</li>
+<li>公式推导中用到了二阶导数，用了二阶泰勒展开。（GBDT 用牛顿法貌似也是二阶信息）</li>
+<li>实现了分裂点寻找近似算法。</li>
+<li>利用了特征的稀疏性。</li>
+<li>数据事先排序并且以 block 形式存储，有利于并行计算。</li>
+<li>基于分布式通信框架 rabit，可以运行在 MPI 和 yarn 上。（最新已经不基于 rabit 了）</li>
+<li>实现做了面向体系结构的优化，针对 cache 和内存做了性能优化。</li>
+</ul>
+<p>特征 j 在单颗树中的重要度的如下：</p>
+<p>\begin{equation}<br>\hat{J_{j}^{2}}(T) = \sum_{t=1}^{L-1} \hat{i_{t}^{2}}1(v_{t}=j)<br>\end{equation}<br>其中，L 为树的叶子节点数量，L-1 为树的非叶子节点数量， 是和节点 t 相关联的特征， 是节点 t 分裂之 后平方误差的减少值。 </p>
+<p>特征  的全局重要度为特征j在单颗树中的重要度的平均值：<br>\begin{equation}<br>\hat{J_{j}^{2}} = \frac{1}{M} \sum_{m=1}^{M} \hat{i_{t}^{2}}(T_{m})<br>\end{equation}</p>
+<p>其中，M 是树的数量。</p>
+<h6 id="基于LASSO正则化的变量筛选"><a href="#基于LASSO正则化的变量筛选" class="headerlink" title="基于LASSO正则化的变量筛选"></a>基于LASSO正则化的变量筛选</h6><p>L1正则化通常称为Lasso正则化，它是在代价函数上增加了一个L1范数:</p>
+<p>具体原理参照Augest博客 ：<a href="https://2018august.github.io/2.%20lr正则化的直观理解/" target="_blank" rel="noopener">https://2018august.github.io/2.%20lr正则化的直观理解/</a></p>
+<h5 id="变量相关性分析"><a href="#变量相关性分析" class="headerlink" title="变量相关性分析"></a>变量相关性分析</h5><h6 id="变量两两相关性分析"><a href="#变量两两相关性分析" class="headerlink" title="变量两两相关性分析"></a>变量两两相关性分析</h6><p>对于自变量 $X_{1},X_{2}$，如果存在常数 $c_{0},c_{1},c_{2}$ 使得以下线性等式近似成立:</p>
+<p>\begin{equation}<br>c_{1}X_{1} + c_{2}X_{2} = c_{0}<br>\end{equation}</p>
+<p>称自变量  具有较强的线性相关性。</p>
+<p>两变量间的线性相关性可以利用皮尔森相关系数来衡量。系数的取值为[-1.0,1.0] ，相关系数越接近0的说明两变 量线性相关性越弱，越接近1或-1两变量线性相关性越强。</p>
+<p><img src="/2018/06/01/金融评分卡模型/13.png" width="80%" height="80%" align="center/"></p>
+<p>当两变量间的相关系数大于阈值时（一般阈值设为 0.7 或 0.4），剔除IV值较低的变量，或分箱严重不均衡的变 量。</p>
+<h6 id="变量的多重共线性分析"><a href="#变量的多重共线性分析" class="headerlink" title="变量的多重共线性分析"></a>变量的多重共线性分析</h6><p>对于自变量 $X_{1},X_{2}…X_{n}$，如果存在常数 $c_{0},c_{1},c_{2}…c_{n}$ 使得以下线性等式近似成立:</p>
+<p>\begin{equation}<br>c_{1}X_{1} + c_{2}X_{2} + … +c_{n}X_{n}= c_{0}<br>\end{equation}</p>
+<p>称自变量 具有较强的多重共线性。</p>
+<p>通常用 VIF 值来衡量一个变量和其他变量的多重共线性：<br>\begin{equation}<br>VIF_{i} = \frac{1}{1- R_{i}^{2}}<br>\end{equation}</p>
+<p>其中 R_{i}为  X_{i}与其他自变量的复相关系数。</p>
+<p>\begin{equation}<br>R_{i} = \frac{\sum(X_{i}-\bar{X_{i}})(\hat{X_{i}}-\bar{X_{i}})}{\sqrt{\sum(X_{i}-\bar{X_{i}})^{2} \sum(\hat{X_{i}}-\bar{X_{i}})^{2}}}<br>\end{equation}</p>
+<p>其中：$\hat{X_{i}}$为其他变量的线性表示 $\hat{X_{i}}  = \theta_{0} + \theta_{1}X_{1} + \theta_{i}X_{i}+…$</p>
+<p>$\bar{X_{i}}$为变量X_{i}的均值</p>
+<p>当某个变量的 VIF 大于阈值时（一般阈值设为10 或 7），需要逐一剔除解释变量。当剔除掉  时发现VIF低于阈 值，从  ${X_{k},X_{i}}$中剔除IV值较低的一个。</p>
+<p><strong>问题：</strong>为什么要进行相关性分析？<br><strong>回答：</strong><br>设想建立一个具有两变量$X_{1}$  和 $X_{2}$ 的线性模型，真实模型是$Y=X_{1} + X_{2}$ 。如果  $X_{1}$和 $X_{2}$ 线性相关（比如说 $X_{1}=2X_{2}$），那么拟合模型 $Y= 3X_{2}$,  或 $Y = 2X_{1} - X_{2}$ 的效果都一样好，理想状态下， 系数权重会有无数种取法，使系数权重变得无法解释，导致变量的每个分段的得分也有无数种取法（后面我们会发 现变量中不同分段的评分会用到变量的系数）</p>
+<p>即使不进行线性相关性分析也不会影响模型的整体性能，进行相关性分析只是为了让我们的模型更易于解释，保证 不同的分箱的得分正确。</p>
+<p>总结一下变量筛选的意义：</p>
+<ul>
+<li>剔除跟目标变量不太相关的特征 </li>
+<li>消除由于线性相关的变量，避免特征冗余 </li>
+<li>减轻后期验证、部署、监控的负担</li>
+<li>保证变量的可解释性 </li>
+</ul>
+<h4 id="构建逻辑回归模型"><a href="#构建逻辑回归模型" class="headerlink" title="构建逻辑回归模型"></a>构建逻辑回归模型</h4><p>主要包括构建初步的逻辑回归模型，根据p-value进行变量筛选，根据各个变量的系数符号进行筛选，得到最终的 逻辑回归模型。</p>
+<p>采用逻辑回归模型的优点：</p>
+<ul>
+<li>简单，稳定 </li>
+<li>可解释性强</li>
+<li>技术成熟 </li>
+<li>易于检测和部署 </li>
+</ul>
+<h5 id="根据p-value进行筛选"><a href="#根据p-value进行筛选" class="headerlink" title="根据p-value进行筛选"></a>根据p-value进行筛选</h5><p>p-value是假设检验的里面的概念。模型假设某自变量与因变量线性无关，p-value可以理解为该假设成立的可能性 (便于理解，不太准确)。一般，当p-value大于阈值时，表示假设显著，即自变量与因变量线性无关；当p-value小 于阈值时，表示假设不显著，即自变量与因变量线性相关。阈值又称为显著性水平，通常取0.05。 因此当某个字段的 p-value 大于0.05时，应该删除此变量。 </p>
+<h5 id="根据系数符号进行筛选"><a href="#根据系数符号进行筛选" class="headerlink" title="根据系数符号进行筛选"></a>根据系数符号进行筛选</h5><p>检查逻辑回归模型中各个变量的系数，如果所有变量的系数均为正数，模型有效。假如有一些变量的系数出现了负 数，说明有一些自变量的线性相关性较强，需要进一步进行变量筛选。通常的做法是：</p>
+<ul>
+<li>综合考虑变量的IV值和业务的建议，按照变量的优先级进行降序排列； </li>
+<li>选择优先级最高的4-5个基本变量； </li>
+<li>按优先级从高到低逐渐添加变量，当新添加的变量之后，出现系数为负的情况，舍弃该变量； </li>
+<li>直到添加最后一个变量。</li>
+</ul>
+<p><strong>问题：</strong>为什么回归模型中各个变量的系数均为正数<br><strong>回答：</strong>由以上分析我们知道对于分箱的WOE编码，分箱中坏客户占比越大，WOE值越大； 也就是说WOE值越大，表示该 分箱中客户为坏客户的概率就越大，即WOE与逻辑回归的预测结果成正比。 </p>
+<p><strong>问题：</strong>为什么说假如有一些变量的系数出现了负数，说明有一些自变量的线性相关性较强？<br><strong>回答：</strong>我们知道，正常情况下，WOE编码后的变量系数一定为正值。由上面为什么进行线性相关性分析的问题可知，由于 一些自变量线性相关，导致系数权重会有无数种取法，使得可以为正数，也可以为负数。 </p>
+<h4 id="模型评价"><a href="#模型评价" class="headerlink" title="模型评价"></a>模型评价</h4><p>见之前的博文（机器学习评价指标）</p>
+<h4 id="转化为评分卡"><a href="#转化为评分卡" class="headerlink" title="转化为评分卡"></a>转化为评分卡</h4><p>我们将客户违约的概率表示为p，则正常的概率为1-p。由逻辑回归的基本原理可得：<br>\begin{equation}<br>p = \frac{1}{1+e^{-\theta^{T}x}}<br>\end{equation}<br>整理以上公式：</p>
+<p>\begin{equation}<br>log(\frac{p}{1-p}) = \theta^{T}x<br>\end{equation}</p>
+<p>我们可以定义比率来表示客户违约的相对概率：<br>\begin{equation}<br>odds =\frac{p}{1-p}<br>\end{equation}</p>
+<p>将 odds 带入可得：</p>
+<p>\begin{equation}<br>log(odds) = \theta^{T}x<br>\end{equation}</p>
+<p>评分卡的分值可以定义为比率对数的线性表达来，即：</p>
+<p>\begin{equation}<br>Score = A - B * log(odds)<br>\end{equation}</p>
+<p>其中A与B是常数，B前面的负号可以使得违约概率越低，得分越高。通常情况下，即高分值代表低风险，低分值代 表高风险。</p>
+<p>A、B的值可以通过将两个已知或假设的分值带入计算得到。通常情况下，需要设定两个假设： </p>
+<ul>
+<li>某个特定的违约概率下的预期评分，即比率  odds为 $\theta_{0}$ 时的分数为 $P_{0}$</li>
+<li>该违约概率翻倍的评分（PDO） </li>
+</ul>
+<p>根据以上的分析，则  odds为$2\theta_{0}$  时的分数为$P_{0} - PDO$ ，代入以上线性表达式，可得：</p>
+<p>\begin{equation}<br>P <em>{0}= A - B * log(\theta</em>{0})<br>\end{equation}</p>
+<p>\begin{equation}<br>P <em>{0} - PDO= A - B * log(2\theta</em>{0})<br>\end{equation}</p>
+<p>解该方程组，可得：<br>\begin{equation}<br>B = \frac{PDO}{log2}<br>\end{equation}<br>可得：<br>\begin{equation}<br>A = P_{0} + B * log(theta_{0})<br>\end{equation}</p>
+<p>在实际的应用中，我们会计算出每个变量的各分箱对应的分值。新用户产生时，对应到每个分箱的值，将这些值相 加，最后加上初始基础分，得到最终的结果。</p>
+<p>\begin{equation}<br>Score = A - B * {\theta_{0} + \theta_{1}x_{1}+…\theta_{n}x_{n}}<br>\end{equation}</p>
+<p>式中：变量$x_{1}…x_{n}$  是出现在最终模型的入模变量。由于所有的入模变量都进行了WOE编码，可以将这些自变量 中的每一个都写 $(\theta_{i}w_{ij})\delta_{ij}$的形式：</p>
+<p><img src="/2018/06/01/金融评分卡模型/14.png" width="80%" height="80%" align="center/"></p>
+<p>其中， $A-B\theta_{0}$为基础分数，$\theta_{i}$ 为逻辑回归中第 i 个自变量的系数，$w_{ij}$ 为第 i个变量的第 j 个分箱的WOE值，$\delta_{ij}$ 是0，1逻辑变量，当  $\delta_{ij}=1$代表自变量 i 取第 j 个分箱，当$\delta_{ij}=0$  代表自变量 i 不取第 j 个分箱。最终得到评 分卡模型：</p>
+<p><img src="/2018/06/01/金融评分卡模型/15.png" width="80%" height="80%" align="center/"></p>
+<p>从以上公式中，我们发现每个分箱的评分都可以表示为 $-B(\theta_{i}w_{ij})$，也就是说影响每个分箱的因素包括三部分，分 别为参数B ，变量系数$\theta_{i}$ ，和对应分箱的WOE编码$w_{ij}$ 。 </p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>最后我们再来回答最初的三个问题作为本文的小结：</p>
+<ol>
+<li>用户的属性有千千万万个维度，而评分卡模型所选用的字段在30个以下，那么怎样挑选这些字段呢？ </li>
+</ol>
+<ul>
+<li>变量预测能力筛选， </li>
+<li>变量相关性分析（包括两两相关性分析，多重共线性分析）， </li>
+<li>根据p-value筛选，</li>
+<li>根据变量的系数符号进行筛选</li>
+</ul>
+<ol>
+<li>评分法卡模型采用的是对每个字段的分段进行评分，那么怎样对评分卡进行分段呢</li>
+</ol>
+<ul>
+<li>变量分箱</li>
+</ul>
+<ol>
+<li>怎样对字段的每个分段进行评分呢？这个评分是怎么来的？</li>
+</ol>
+<ul>
+<li>WOE编码，</li>
+<li>将预测概率值转化为评分： $Score = A - B * log(odds) $ </li>
+<li>利用变量相关性分析和变量的系数符号保证每个分箱评分的合理性。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/31/线性回归与逻辑回归/" rel="next" title="线性回归与逻辑回归">
+                <i class="fa fa-chevron-left"></i> 线性回归与逻辑回归
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/avatar.png"
+                alt="Haonan Cui" />
+            
+              <p class="site-author-name" itemprop="name">Haonan Cui</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#评分卡模型"><span class="nav-number">1.</span> <span class="nav-text">评分卡模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型卡模型的开发"><span class="nav-number">2.</span> <span class="nav-text">模型卡模型的开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总体流程"><span class="nav-number">2.1.</span> <span class="nav-text">总体流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据获取"><span class="nav-number">2.2.</span> <span class="nav-text">数据获取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EDA-（探索性数据分析）"><span class="nav-number">2.3.</span> <span class="nav-text">EDA （探索性数据分析）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据预处理"><span class="nav-number">2.4.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#数据清洗"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">数据清洗</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量分箱"><span class="nav-number">2.4.1.</span> <span class="nav-text">变量分箱</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#WOE-编码"><span class="nav-number">2.4.2.</span> <span class="nav-text">WOE  编码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量筛选"><span class="nav-number">2.5.</span> <span class="nav-text">变量筛选</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#基于IV值的变量筛选"><span class="nav-number">2.5.0.1.</span> <span class="nav-text">基于IV值的变量筛选</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#基于stepwise的变量筛选"><span class="nav-number">2.5.0.2.</span> <span class="nav-text">基于stepwise的变量筛选</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#基于特征重要度的变量筛选"><span class="nav-number">2.5.0.3.</span> <span class="nav-text">基于特征重要度的变量筛选</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#基于LASSO正则化的变量筛选"><span class="nav-number">2.5.0.4.</span> <span class="nav-text">基于LASSO正则化的变量筛选</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量相关性分析"><span class="nav-number">2.5.1.</span> <span class="nav-text">变量相关性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#变量两两相关性分析"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">变量两两相关性分析</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#变量的多重共线性分析"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">变量的多重共线性分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建逻辑回归模型"><span class="nav-number">2.6.</span> <span class="nav-text">构建逻辑回归模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#根据p-value进行筛选"><span class="nav-number">2.6.1.</span> <span class="nav-text">根据p-value进行筛选</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据系数符号进行筛选"><span class="nav-number">2.6.2.</span> <span class="nav-text">根据系数符号进行筛选</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型评价"><span class="nav-number">2.7.</span> <span class="nav-text">模型评价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转化为评分卡"><span class="nav-number">2.8.</span> <span class="nav-text">转化为评分卡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.9.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Haonan Cui</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GiaasJktzc5Yp2Dh63a7eIiR-gzGzoHsz',
+        appKey: '6nRQyyJGa2DwLUOqfAoISdCt',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
