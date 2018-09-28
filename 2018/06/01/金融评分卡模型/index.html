@@ -101,7 +101,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/13.png">
 <meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/14.png">
 <meta property="og:image" content="http://yoursite.com/2018/06/01/金融评分卡模型/15.png">
-<meta property="og:updated_time" content="2018-06-02T10:06:41.076Z">
+<meta property="og:updated_time" content="2018-06-02T10:07:32.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LR之金融评分卡模型 | August分享">
 <meta name="twitter:description" content="虽然现在出现了很多性能优秀的分类算法，包括svm，RF，GBDT，DNN等，LR作为最简单的分类算法，依然是工业界主流的分类算法之一。那么LR到底有什么魔力，即使面对如此众多的 “高手” 面前，依然屹立不倒呢？ 市面上关于LR的书籍和文章大部分的讲解都是针对LR一些基本理论或者一些推导公式。掌握这些还远远不够，要想让LR发挥其最大效果，必须要有一套科学的、严密的数据预处理流程。本文将以金融评分卡模">
@@ -587,8 +587,7 @@
 <li>该违约概率翻倍的评分（PDO） </li>
 </ul>
 <p>根据以上的分析，则  odds为$2\theta_{0}$  时的分数为$P_{0} - PDO$ ，代入以上线性表达式，可得：</p>
-<p>\begin{equation}<br>P <em>{0}= A - B * log(\theta</em>{0})<br>\end{equation}</p>
-<p>\begin{equation}<br>P <em>{0} - PDO= A - B * log(2\theta</em>{0})<br>\end{equation}</p>
+<p>\begin{equation}<br>P <em>{0}= A - B * log(\theta</em>{0})<br>\end{equation}<br>可得：<br>\begin{equation}<br>P <em>{0} - PDO= A - B * log(2\theta</em>{0})<br>\end{equation}</p>
 <p>解该方程组，可得：<br>\begin{equation}<br>B = \frac{PDO}{log2}<br>\end{equation}<br>可得：<br>\begin{equation}<br>A = P_{0} + B * log(theta_{0})<br>\end{equation}</p>
 <p>在实际的应用中，我们会计算出每个变量的各分箱对应的分值。新用户产生时，对应到每个分箱的值，将这些值相 加，最后加上初始基础分，得到最终的结果。</p>
 <p>\begin{equation}<br>Score = A - B * {\theta_{0} + \theta_{1}x_{1}+…\theta_{n}x_{n}}<br>\end{equation}</p>
@@ -654,6 +653,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/03/树模型初步与进阶/" rel="prev" title="树模型初步与进阶">
+                树模型初步与进阶 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -763,7 +766,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
